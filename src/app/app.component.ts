@@ -1,5 +1,5 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import jsonp from 'jsonp';
 
 import { Photo } from '../models/photo';
 
@@ -14,15 +14,13 @@ export class AppComponent {
   photos: Photo[] = [];
   currentPhoto: Photo | null = null;
 
+  constructor(private http: HttpClient) {}
+
   handleSearch(searchTerm: string) {
     // Make the JSONP request to Flickr
     const encodedSearchTerm = encodeURIComponent(searchTerm);
     const url = `http://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
-    jsonp(url, { param: 'jsoncallback' }, (err, data) => {
-      console.log(data.items);
-      if (err) {
-        return;
-      }
+    this.http.jsonp(url, 'jsoncallback').subscribe((data: any) => {
       this.searchTerm = searchTerm;
       this.photos = data.items;
       this.currentPhoto = null;
