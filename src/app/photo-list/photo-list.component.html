@@ -1,0 +1,7 @@
+<h2>{{ title }}</h2>
+
+<app-photo-item
+  *ngFor="let photo of photos"
+  [photo]="photo"
+  (focusPhoto)="handleFocusPhoto($event)"
+></app-photo-item>
