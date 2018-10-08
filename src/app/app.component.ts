@@ -28,7 +28,6 @@ export class AppComponent {
   }
 
   handleFocusPhoto(photo: Photo) {
-    console.log('handleFocusPhoto', photo);
     this.currentPhoto = photo;
   }
 

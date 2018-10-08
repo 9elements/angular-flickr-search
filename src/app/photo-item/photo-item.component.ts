@@ -17,7 +17,6 @@ export class PhotoItemComponent {
 
   handleClick(event: MouseEvent) {
     event.preventDefault();
-    console.log('handleClick', this.photo);
     if (this.photo) {
       this.focusPhoto.emit(this.photo);
     }

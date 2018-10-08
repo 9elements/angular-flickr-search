@@ -19,7 +19,6 @@ export class PhotoListComponent {
   focusPhoto = new EventEmitter<Photo>();
 
   handleFocusPhoto(photo: Photo) {
-    console.log('photo-list handleFocusPhoto', photo);
     this.focusPhoto.emit(photo);
   }
 
