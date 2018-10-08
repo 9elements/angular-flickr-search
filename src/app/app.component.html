@@ -1,5 +1,11 @@
+<h1>Flickr Search</h1>
+
 <app-search-form (search)="handleSearch($event)"></app-search-form>
 
-<app-photo-list [title]="searchTerm" [photos]="photos" (focusPhoto)="handleFocusPhoto($event)"></app-photo-list>
+<div class="photo-list-and-full-photo">
 
-<app-full-photo *ngIf="currentPhoto" [photo]="currentPhoto"></app-full-photo>
+  <app-photo-list [title]="searchTerm" [photos]="photos" (focusPhoto)="handleFocusPhoto($event)" class="photo-list"></app-photo-list>
+
+  <app-full-photo *ngIf="currentPhoto" [photo]="currentPhoto" class="full-photo"></app-full-photo>
+
+</div>
