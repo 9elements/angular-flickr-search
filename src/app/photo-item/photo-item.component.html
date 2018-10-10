@@ -1,3 +1,5 @@
-<a href="{{ photo.link }}" (click)="handleClick($event)" class="link" data-qa="link">
-  <img src="{{ photo.media.m }}" alt="{{ photo.title }}" class="image" data-qa="image">
-</a>
+<ng-container *ngIf="photo">
+  <a href="{{ photo.link }}" (click)="handleClick($event)" class="link" data-qa="link">
+    <img src="{{ photo.media.m }}" alt="{{ photo.title }}" class="image" data-qa="image">
+  </a>
+</ng-container>

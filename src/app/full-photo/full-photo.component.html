@@ -1,11 +1,15 @@
-<h2 data-qa="title">{{ photo.title }}</h2>
+<ng-container *ngIf="photo">
 
-<p><img src="{{ photo.media.m }}" alt="{{ photo.title }}" data-qa="image"></p>
+  <h2 data-qa="title">{{ photo.title }}</h2>
 
-<p data-qa="author">{{ photo.author }}</p>
+  <p><img src="{{ photo.media.m }}" alt="{{ photo.title }}" data-qa="image"></p>
 
-<p data-qa="date_taken">{{ photo.date_taken }}</p>
+  <p data-qa="author">{{ photo.author }}</p>
 
-<p data-qa="tags">{{ photo.tags }}</p>
+  <p data-qa="date_taken">{{ photo.date_taken }}</p>
 
-<p><a href="{{ photo.link }}" data-qa="link">{{ photo.link }}</a></p>
+  <p data-qa="tags">{{ photo.tags }}</p>
+
+  <p><a href="{{ photo.link }}" data-qa="link">{{ photo.link }}</a></p>
+
+</ng-container>
