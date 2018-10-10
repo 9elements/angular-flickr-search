@@ -1,11 +1,11 @@
-<h2>{{ photo.title }}</h2>
+<h2 data-qa="title">{{ photo.title }}</h2>
 
-<p><img src="{{ photo.media.m }}" alt="{{ photo.title }}"></p>
+<p><img src="{{ photo.media.m }}" alt="{{ photo.title }}" data-qa="image"></p>
 
-<p>{{ photo.author }}</p>
+<p data-qa="author">{{ photo.author }}</p>
 
-<p>{{ photo.date_taken }}</p>
+<p data-qa="date_taken">{{ photo.date_taken }}</p>
 
-<p>{{ photo.tags }}</p>
+<p data-qa="tags">{{ photo.tags }}</p>
 
-<p><a href="{{ photo.link }}">{{ photo.link }}</a></p>
+<p><a href="{{ photo.link }}" data-qa="link">{{ photo.link }}</a></p>

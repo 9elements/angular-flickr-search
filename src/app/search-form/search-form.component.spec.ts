@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { findEl } from '../spec-helpers/element.spec-helper';
 import { SearchFormComponent } from './search-form.component';
+
+const searchTerm = 'flowers';
 
 describe('SearchFormComponent', () => {
   let component: SearchFormComponent;
@@ -19,7 +22,17 @@ describe('SearchFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('starts a search', (done: DoneFn) => {
+    component.search.subscribe((searchTerm2: string) => {
+      expect(searchTerm2).toBe(searchTerm);
+      expect(preventDefault).toHaveBeenCalled();
+      done();
+    });
+
+    const searchTermInput = findEl(fixture, 'searchTermInput');
+    searchTermInput.nativeElement.value = searchTerm;
+
+    const preventDefault = jasmine.createSpy('submit preventDefault');
+    findEl(fixture, 'form').triggerEventHandler('submit', { preventDefault });
   });
 });

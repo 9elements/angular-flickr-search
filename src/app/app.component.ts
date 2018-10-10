@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
-import { Photo } from '../models/photo';
+import { Photo } from './models/photo';
 
 @Component({
   selector: 'app-root',
