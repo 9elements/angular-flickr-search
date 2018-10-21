@@ -2,8 +2,8 @@
 
 Angular workshop exercise. Other versions:
 
-* [Flickr Search with React](https://github.com/molily/learning-react/tree/master/5-flickr-search)
-* [Flickr Search with React and Redux](https://github.com/molily/learning-react/tree/master/7-flickr-search-redux)
+- [Flickr Search with React](https://github.com/molily/learning-react/tree/master/5-flickr-search)
+- [Flickr Search with React and Redux](https://github.com/molily/learning-react/tree/master/7-flickr-search-redux)
 - [Flickr Search with jQuery](http://molily.de/javascript-introduction/flickr-jquery.html)
 - [Flickr Search with Backbone](http://molily.de/javascript-introduction/flickr-backbone.html)
 
