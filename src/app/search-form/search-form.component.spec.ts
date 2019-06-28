@@ -23,6 +23,8 @@ describe('SearchFormComponent', () => {
   });
 
   it('starts a search', (done: DoneFn) => {
+    const preventDefault = jasmine.createSpy('submit preventDefault');
+
     component.search.subscribe((searchTerm2: string) => {
       expect(searchTerm2).toBe(searchTerm);
       expect(preventDefault).toHaveBeenCalled();
@@ -32,7 +34,6 @@ describe('SearchFormComponent', () => {
     const searchTermInput = findEl(fixture, 'searchTermInput');
     searchTermInput.nativeElement.value = searchTerm;
 
-    const preventDefault = jasmine.createSpy('submit preventDefault');
     findEl(fixture, 'form').triggerEventHandler('submit', { preventDefault });
   });
 });

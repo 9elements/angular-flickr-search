@@ -68,7 +68,7 @@ export function makeClickEvent(target: EventTarget): Partial<MouseEvent> {
     stopPropagation() {},
     stopImmediatePropagation() {},
     type: 'click',
-    target: target,
+    target,
     currentTarget: target,
     bubbles: true,
     cancelable: true
