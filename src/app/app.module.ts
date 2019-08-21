@@ -1,16 +1,27 @@
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { FullPhotoComponent } from './full-photo/full-photo.component';
-import { PhotoItemComponent } from './photo-item/photo-item.component';
-import { PhotoListComponent } from './photo-list/photo-list.component';
-import { SearchFormComponent } from './search-form/search-form.component';
+import { FlickrSearchNgrxComponent } from './components/flickr-search-ngrx/flickr-search-ngrx.component';
+import { FlickrSearchComponent } from './components/flickr-search/flickr-search.component';
+import { FullPhotoComponent } from './components/full-photo/full-photo.component';
+import { PhotoItemComponent } from './components/photo-item/photo-item.component';
+import { PhotoListComponent } from './components/photo-list/photo-list.component';
+import { SearchFormComponent } from './components/search-form/search-form.component';
+import { PhotosEffects } from './effects/photos.effects';
+import { metaReducers, reducers } from './reducers';
+import { FlickrService } from './services/flickr.service';
 
 @NgModule({
   declarations: [
     AppComponent,
+    FlickrSearchComponent,
+    FlickrSearchNgrxComponent,
     SearchFormComponent,
     PhotoListComponent,
     PhotoItemComponent,
@@ -19,9 +30,18 @@ import { SearchFormComponent } from './search-form/search-form.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
+    EffectsModule.forRoot([PhotosEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
-  providers: [],
+  providers: [FlickrService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

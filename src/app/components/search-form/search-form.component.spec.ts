@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { findEl } from '../spec-helpers/element.spec-helper';
+import { findEl } from '../../spec-helpers/element.spec-helper';
 import { SearchFormComponent } from './search-form.component';
 
 const searchTerm = 'flowers';

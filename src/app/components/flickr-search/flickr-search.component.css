@@ -1,0 +1,11 @@
+@media (min-width: 50rem) {
+
+  .photo-list-and-full-photo {
+    display: flex;
+  }
+
+  .photo-list, .full-photo {
+    flex: 0 1 50%;
+  }
+
+}

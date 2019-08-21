@@ -1,18 +1,3 @@
-<h1>Flickr Search</h1>
+<app-flickr-search></app-flickr-search>
 
-<app-search-form (search)="handleSearch($event)"></app-search-form>
-
-<div class="photo-list-and-full-photo">
-
-  <app-photo-list
-    [title]="searchTerm"
-    [photos]="photos"
-    (focusPhoto)="handleFocusPhoto($event)"
-    class="photo-list"></app-photo-list>
-
-  <app-full-photo
-    *ngIf="currentPhoto"
-    [photo]="currentPhoto"
-    class="full-photo"></app-full-photo>
-
-</div>
+<app-flickr-search-ngrx></app-flickr-search-ngrx>

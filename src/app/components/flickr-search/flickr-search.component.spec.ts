@@ -2,16 +2,14 @@ import { HttpBackend, JsonpClientBackend } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { findComponent } from '../../spec-helpers/element.spec-helper';
+import { photo1, photos } from '../../spec-helpers/photo.spec-helper';
 
-import { AppComponent } from './app.component';
-import { findComponent } from './spec-helpers/element.spec-helper';
-import { photo } from './spec-helpers/photo.spec-helper';
+import { FlickrSearchComponent } from './flickr-search.component';
 
-const photos = [photo];
-
-describe('AppComponent', () => {
-  let fixture: ComponentFixture<AppComponent>;
-  let component: AppComponent;
+describe('FlickrSearchComponent', () => {
+  let fixture: ComponentFixture<FlickrSearchComponent>;
+  let component: FlickrSearchComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,7 +17,7 @@ describe('AppComponent', () => {
         HttpClientTestingModule
       ],
       declarations: [
-        AppComponent
+        FlickrSearchComponent
       ],
       providers: [
         // See https://github.com/angular/angular/issues/20878 and
@@ -31,7 +29,7 @@ describe('AppComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.createComponent(FlickrSearchComponent);
     component = fixture.debugElement.componentInstance;
     fixture.detectChanges();
   });
@@ -72,12 +70,12 @@ describe('AppComponent', () => {
     }).toThrow();
 
     const photoList = findComponent(fixture, 'app-photo-list');
-    photoList.triggerEventHandler('focusPhoto', photo);
+    photoList.triggerEventHandler('focusPhoto', photo1);
 
     fixture.detectChanges();
 
     const fullPhoto = findComponent(fixture, 'app-full-photo');
-    expect(fullPhoto.properties.photo).toBe(photo);
+    expect(fullPhoto.properties.photo).toBe(photo1);
   });
 
 });
