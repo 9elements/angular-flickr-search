@@ -25,17 +25,14 @@ describe('FlickrSearchNgrxComponent with spectator', () => {
 
   let searchForm: SearchFormComponent;
   let photoList: PhotoListComponent;
+  let fullPhoto: FullPhotoComponent;
 
   function setup(state: AppState) {
     create = createTestComponentFactory({
       component: FlickrSearchNgrxComponent,
       shallow: true,
       declarations: [
-        MockComponents(
-          SearchFormComponent,
-          PhotoListComponent,
-          FullPhotoComponent
-        )
+        MockComponents(SearchFormComponent, PhotoListComponent, FullPhotoComponent)
       ],
       providers: [provideMockStore({ initialState: state })]
     });
@@ -48,6 +45,7 @@ describe('FlickrSearchNgrxComponent with spectator', () => {
 
       searchForm = spectator.query(SearchFormComponent);
       photoList = spectator.query(PhotoListComponent);
+      fullPhoto = spectator.query(FullPhotoComponent);
     });
   }
 
@@ -60,9 +58,7 @@ describe('FlickrSearchNgrxComponent with spectator', () => {
       expect(photoList.title).toEqual(initialState.searchTerm);
       expect(photoList.photos).toEqual(initialState.photos);
 
-      expect(() => {
-        spectator.query(FullPhotoComponent);
-      }).toThrow();
+      expect(fullPhoto).not.toExist();
     });
 
     it('searches', () => {
@@ -75,31 +71,21 @@ describe('FlickrSearchNgrxComponent with spectator', () => {
   describe('with photos', () => {
     setup({ photos: stateWithPhotos });
 
-    it('renders the search form and the photo list, not the full photo', () => {
-      expect(searchForm).toExist();
-      expect(photoList).toExist();
-      expect(photoList.title).toBe(stateWithPhotos.searchTerm);
+    it('passes the photos to the photo list', () => {
       expect(photoList.photos).toEqual(stateWithPhotos.photos);
-
-      expect(() => {
-        spectator.query(FullPhotoComponent);
-      }).toThrow();
     });
 
     it('focusses a photo', () => {
       photoList.focusPhoto.emit(photo1);
 
-      expect(store$.dispatch).toHaveBeenCalledWith(
-        focusPhoto({ photo: photo1 })
-      );
+      expect(store$.dispatch).toHaveBeenCalledWith(focusPhoto({ photo: photo1 }));
     });
   });
 
   describe('with current photo', () => {
     setup({ photos: stateWithCurrentPhoto });
 
-    it('renders the full photo when a photo is focussed', () => {
-      const fullPhoto = spectator.query<FullPhotoComponent>(FullPhotoComponent);
+    it('renders the full photo', () => {
       expect(fullPhoto.photo).toEqual(photo1);
     });
   });

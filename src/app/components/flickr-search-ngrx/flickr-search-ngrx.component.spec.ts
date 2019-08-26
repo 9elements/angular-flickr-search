@@ -67,15 +67,8 @@ describe('FlickrSearchNgrxComponent', () => {
       setup({ photos: stateWithPhotos });
     });
 
-    it('renders the search form and the photo list, not the full photo', () => {
-      expect(searchForm).toBeTruthy();
-      expect(photoList).toBeTruthy();
-      expect(photoList.properties.title).toBe(stateWithPhotos.searchTerm);
+    it('passes the photos to the photo list', () => {
       expect(photoList.properties.photos).toEqual(stateWithPhotos.photos);
-
-      expect(() => {
-        findComponent(fixture, 'app-full-photo');
-      }).toThrow();
     });
 
     it('focusses a photo', () => {
@@ -90,7 +83,7 @@ describe('FlickrSearchNgrxComponent', () => {
       setup({ photos: stateWithCurrentPhoto });
     });
 
-    it('renders the full photo when a photo is focussed', () => {
+    it('renders the full photo', () => {
       const fullPhoto = findComponent(fixture, 'app-full-photo');
       expect(fullPhoto.properties.photo).toEqual(photo1);
     });

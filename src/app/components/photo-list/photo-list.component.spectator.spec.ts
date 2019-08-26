@@ -7,17 +7,14 @@ import { PhotoListComponent } from './photo-list.component';
 import { Photo } from 'src/app/models/photo';
 
 const title = 'Hello World';
-const photos = [ photo1, photo2 ];
+const photos = [photo1, photo2];
 
 describe('PhotoListComponent with spectator', () => {
-
   let spectator: Spectator<PhotoListComponent>;
 
   const create = createTestComponentFactory({
     component: PhotoListComponent,
-    declarations: [
-      MockComponent(PhotoItemComponent)
-    ],
+    declarations: [MockComponent(PhotoItemComponent)],
     shallow: true
   });
 
@@ -30,7 +27,7 @@ describe('PhotoListComponent with spectator', () => {
   });
 
   it('renders photo items', () => {
-    const photoItems = spectator.queryAll<PhotoItemComponent>(PhotoItemComponent);
+    const photoItems = spectator.queryAll(PhotoItemComponent);
     expect(photoItems.length).toBe(photos.length);
     photoItems.forEach((photoItem, i) => {
       expect(photoItem.photo).toBe(photos[i]);
@@ -38,7 +35,7 @@ describe('PhotoListComponent with spectator', () => {
   });
 
   it('focusses a photo', (done: DoneFn) => {
-    const photoItem = spectator.query<PhotoItemComponent>(PhotoItemComponent);
+    const photoItem = spectator.query(PhotoItemComponent);
 
     spectator.component.focusPhoto.subscribe((otherPhoto: Photo) => {
       expect(otherPhoto).toBe(photo1);
@@ -47,5 +44,4 @@ describe('PhotoListComponent with spectator', () => {
 
     photoItem.focusPhoto.emit(photo1);
   });
-
 });

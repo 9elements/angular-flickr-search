@@ -18,17 +18,14 @@ describe('FlickrSearchComponent with spectator', () => {
 
   let searchForm: SearchFormComponent;
   let photoList: PhotoListComponent;
+  let fullPhoto: FullPhotoComponent;
 
   const create = createTestComponentFactory({
     component: FlickrSearchComponent,
     shallow: true,
     imports: [HttpClientTestingModule],
     declarations: [
-      MockComponents(
-        SearchFormComponent,
-        PhotoListComponent,
-        FullPhotoComponent
-      )
+      MockComponents(SearchFormComponent, PhotoListComponent, FullPhotoComponent)
     ],
     providers: [
       // See https://github.com/angular/angular/issues/20878 and
@@ -42,9 +39,12 @@ describe('FlickrSearchComponent with spectator', () => {
 
     searchForm = spectator.query(SearchFormComponent);
     photoList = spectator.query(PhotoListComponent);
+    fullPhoto = spectator.query(FullPhotoComponent);
   });
 
   it('renders a search form', () => {
+    expect(searchForm).toBeTruthy();
+    expect(searchForm).toBeTruthy();
     expect(searchForm).toBeTruthy();
   });
 
@@ -58,9 +58,7 @@ describe('FlickrSearchComponent with spectator', () => {
     const httpMock: HttpTestingController = TestBed.get(HttpTestingController);
     const encodedSearchTerm = encodeURIComponent(searchTerm);
     const expectedUrl = `http://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
-    const matchedRequest = httpMock.expectOne(
-      request => request.url === expectedUrl
-    );
+    const matchedRequest = httpMock.expectOne((request) => request.url === expectedUrl);
     matchedRequest.flush({ items: photos });
     httpMock.verify();
 
@@ -72,14 +70,13 @@ describe('FlickrSearchComponent with spectator', () => {
 
   it('renders the full photo when a photo is focussed', () => {
     expect(() => {
-      spectator.query<FullPhotoComponent>(FullPhotoComponent);
+      spectator.query(FullPhotoComponent);
     }).toThrow();
 
     photoList.focusPhoto.emit(photo1);
 
     spectator.detectChanges();
 
-    const fullPhoto = spectator.query<FullPhotoComponent>(FullPhotoComponent);
     expect(fullPhoto.photo).toBe(photo1);
   });
 });
