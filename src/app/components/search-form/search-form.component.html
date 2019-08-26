@@ -1,7 +1,7 @@
-<form (submit)="handleSearch($event, input.value)" data-qa="form">
+<form (submit)="handleSearch($event, input.value)" data-testid="form">
 
   <p>
-    <input type="text" value="flower" #input data-qa="searchTermInput">
+    <input type="text" value="flower" #input data-testid="searchTermInput">
     <button>Search</button>
   </p>
 

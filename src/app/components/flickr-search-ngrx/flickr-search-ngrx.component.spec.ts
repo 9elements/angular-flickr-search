@@ -1,17 +1,26 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { focusPhoto, search } from '../../actions/photos.actions';
 import { AppState } from '../../reducers';
 import { findComponent } from '../../spec-helpers/element.spec-helper';
-import { initialState, photo1, searchTerm, stateWithCurrentPhoto, stateWithPhotos } from '../../spec-helpers/photo.spec-helper';
+import {
+  initialState,
+  photo1,
+  searchTerm,
+  stateWithCurrentPhoto,
+  stateWithPhotos
+} from '../../spec-helpers/photo.spec-helper';
 
 import { FlickrSearchNgrxComponent } from './flickr-search-ngrx.component';
 
-describe('AppComponent', () => {
+describe('FlickrSearchNgrxComponent', () => {
   let fixture: ComponentFixture<FlickrSearchNgrxComponent>;
-  let store: Store<AppState>;
+  let store$: Store<AppState>;
+
+  let searchForm: DebugElement;
+  let photoList: DebugElement;
 
   function setup(state: AppState) {
     TestBed.configureTestingModule({
@@ -20,11 +29,14 @@ describe('AppComponent', () => {
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    store = TestBed.get(Store);
-    spyOn(store, 'dispatch');
+    store$ = TestBed.get(Store);
+    spyOn(store$, 'dispatch');
 
     fixture = TestBed.createComponent(FlickrSearchNgrxComponent);
     fixture.detectChanges();
+
+    searchForm = findComponent(fixture, 'app-search-form');
+    photoList = findComponent(fixture, 'app-photo-list');
   }
 
   describe('initial state', () => {
@@ -33,9 +45,6 @@ describe('AppComponent', () => {
     });
 
     it('renders the search form and the photo list, not the full photo', () => {
-      const searchForm = findComponent(fixture, 'app-search-form');
-      const photoList = findComponent(fixture, 'app-photo-list');
-
       expect(searchForm).toBeTruthy();
       expect(photoList).toBeTruthy();
       expect(photoList.properties.title).toBe(initialState.searchTerm);
@@ -47,10 +56,9 @@ describe('AppComponent', () => {
     });
 
     it('searches', () => {
-      const searchForm = findComponent(fixture, 'app-search-form');
       searchForm.triggerEventHandler('search', searchTerm);
 
-      expect(store.dispatch).toHaveBeenCalledWith(search({ searchTerm }));
+      expect(store$.dispatch).toHaveBeenCalledWith(search({ searchTerm }));
     });
   });
 
@@ -60,9 +68,6 @@ describe('AppComponent', () => {
     });
 
     it('renders the search form and the photo list, not the full photo', () => {
-      const searchForm = findComponent(fixture, 'app-search-form');
-      const photoList = findComponent(fixture, 'app-photo-list');
-
       expect(searchForm).toBeTruthy();
       expect(photoList).toBeTruthy();
       expect(photoList.properties.title).toBe(stateWithPhotos.searchTerm);
@@ -74,12 +79,9 @@ describe('AppComponent', () => {
     });
 
     it('focusses a photo', () => {
-      const photoList = findComponent(fixture, 'app-photo-list');
       photoList.triggerEventHandler('focusPhoto', photo1);
 
-      expect(store.dispatch).toHaveBeenCalledWith(
-        focusPhoto({ photo: photo1 })
-      );
+      expect(store$.dispatch).toHaveBeenCalledWith(focusPhoto({ photo: photo1 }));
     });
   });
 

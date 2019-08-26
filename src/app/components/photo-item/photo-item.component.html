@@ -1,3 +1,3 @@
-<a *ngIf="photo" href="{{ photo.link }}" (click)="handleClick($event)" class="link" data-qa="link">
-  <img src="{{ photo.media.m }}" alt="{{ photo.title }}" class="image" data-qa="image">
+<a *ngIf="photo" href="{{ photo.link }}" (click)="handleClick($event)" class="link" data-testid="link">
+  <img src="{{ photo.media.m }}" alt="{{ photo.title }}" class="image" data-testid="image">
 </a>

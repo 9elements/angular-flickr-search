@@ -1,4 +1,8 @@
-import { HttpBackend, JsonpClientBackend, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpBackend,
+  JsonpClientBackend,
+  HttpErrorResponse
+} from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController
@@ -11,11 +15,9 @@ import { searchTerm, photos } from '../spec-helpers/photo.spec-helper';
 const encodedSearchTerm = encodeURIComponent(searchTerm);
 const expectedUrl = `http://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
 
-const errorEvent = new ErrorEvent('API error');
-
 describe('FlickrService', () => {
   let flickrService: FlickrService;
-  let httpMock: HttpTestingController;
+  let controller: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -28,26 +30,31 @@ describe('FlickrService', () => {
       ]
     });
     flickrService = TestBed.get(FlickrService);
-    httpMock = TestBed.get(HttpTestingController);
+    controller = TestBed.get(HttpTestingController);
   });
 
   afterEach(() => {
-    httpMock.verify();
+    controller.verify();
   });
 
   it('searches for public photos', async(() => {
-    flickrService.searchPublicPhotos(searchTerm).subscribe(foundPhotos => {
+    flickrService.searchPublicPhotos(searchTerm).subscribe((foundPhotos) => {
       expect(foundPhotos).toEqual(photos);
     });
 
-    httpMock
-      .expectOne(request => request.url === expectedUrl)
+    controller
+      // Normally, we could write .expectOne(expectedUrl) here.
+      // But this would check against the full URL containing
+      // the dynamic "jsoncallback=?" parameter.
+      // In contrast, request.url lacks the "jsoncallback" parameter.
+      .expectOne((request) => request.url === expectedUrl)
       .flush({ items: photos });
   }));
 
   it('passes through search errors', async(() => {
     const status = 500;
     const statusText = 'Server error';
+    const errorEvent = new ErrorEvent('API error');
 
     flickrService.searchPublicPhotos(searchTerm).subscribe(
       fail,
@@ -59,9 +66,9 @@ describe('FlickrService', () => {
       fail
     );
 
-    httpMock
-      .expectOne(request => request.url === expectedUrl)
-      .error(errorEvent, { status: 500, statusText: 'Server error' });
-    httpMock.verify();
+    controller
+      .expectOne((request) => request.url === expectedUrl)
+      .error(errorEvent, { status, statusText });
+    controller.verify();
   }));
 });

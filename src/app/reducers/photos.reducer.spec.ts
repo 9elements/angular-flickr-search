@@ -1,5 +1,13 @@
 import { focusPhoto, search, searchResultsLoaded } from '../actions/photos.actions';
-import { initialState, photo1, photos, searchTerm, stateWithCurrentPhoto, stateWithPhotos, stateWithSearchTerm } from '../spec-helpers/photo.spec-helper';
+import {
+  initialState,
+  photo1,
+  photos,
+  searchTerm,
+  stateWithCurrentPhoto,
+  stateWithPhotos,
+  stateWithSearchTerm
+} from '../spec-helpers/photo.spec-helper';
 import { photosReducer } from './photos.reducer';
 
 describe('photosReducer', () => {
@@ -14,10 +22,7 @@ describe('photosReducer', () => {
   });
 
   it('stores the search results', () => {
-    const state = photosReducer(
-      stateWithSearchTerm,
-      searchResultsLoaded({ photos })
-    );
+    const state = photosReducer(stateWithSearchTerm, searchResultsLoaded({ photos }));
     expect(state).toEqual(stateWithPhotos);
   });
 

@@ -3,11 +3,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Photo } from '../../models/photo';
 import { expectText, findComponent, findComponents } from '../../spec-helpers/element.spec-helper';
-import { photo1 } from '../../spec-helpers/photo.spec-helper';
+import { photo1, photo2 } from '../../spec-helpers/photo.spec-helper';
 import { PhotoListComponent } from './photo-list.component';
 
 const title = 'Hello World';
-const photos = [ photo1, photo1 ];
+const photos = [ photo1, photo2 ];
 
 describe('PhotoListComponent', () => {
   let component: PhotoListComponent;
@@ -44,8 +44,8 @@ describe('PhotoListComponent', () => {
   it('focusses a photo', (done: DoneFn) => {
     const photoItem = findComponent(fixture, 'app-photo-item');
 
-    component.focusPhoto.subscribe((photo2: Photo) => {
-      expect(photo2).toBe(photo1);
+    component.focusPhoto.subscribe((otherPhoto: Photo) => {
+      expect(otherPhoto).toBe(photo1);
       done();
     });
 

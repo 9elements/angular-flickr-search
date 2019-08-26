@@ -4,7 +4,11 @@ import { Observable } from 'rxjs';
 
 import { Photo } from '../../models/photo';
 import { AppState } from '../../reducers';
-import { searchTermSelector, photosSelector, currentPhotoSelector } from '../../selectors/photos.selectors';
+import {
+  searchTermSelector,
+  photosSelector,
+  currentPhotoSelector
+} from '../../selectors/photos.selectors';
 import { search, focusPhoto } from '../../actions/photos.actions';
 
 @Component({
@@ -13,7 +17,6 @@ import { search, focusPhoto } from '../../actions/photos.actions';
   styleUrls: ['./flickr-search-ngrx.component.css']
 })
 export class FlickrSearchNgrxComponent {
-
   searchTerm$: Observable<string>;
   photos$: Observable<Photo[]>;
   currentPhoto$: Observable<Photo | null>;
@@ -31,5 +34,4 @@ export class FlickrSearchNgrxComponent {
   handleFocusPhoto(photo: Photo) {
     this.store$.dispatch(focusPhoto({ photo }));
   }
-
 }

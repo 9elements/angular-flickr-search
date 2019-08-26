@@ -21,24 +21,24 @@ function queryByCss<T>(
   return debugElement;
 }
 
-// Finds an element with the given 'data-qa' attribute.
+// Finds an element with the given 'data-testid' attribute.
 // Throws an error if no element was found.
 export function findEl<T>(
   fixture: ComponentFixture<T>,
   qaAttribute: string
 ): DebugElement {
-  return queryByCss<T>(fixture, `[data-qa="${qaAttribute}"]`);
+  return queryByCss<T>(fixture, `[data-testid="${qaAttribute}"]`);
 }
 
-// Finds all elements with the given 'data-qa' attribute.
+// Finds all elements with the given 'data-testid' attribute.
 export function findEls<T>(
   fixture: ComponentFixture<T>,
   qaAttribute: string
 ): DebugElement[] {
-  return fixture.debugElement.queryAll(By.css(`[data-qa="${qaAttribute}"]`));
+  return fixture.debugElement.queryAll(By.css(`[data-testid="${qaAttribute}"]`));
 }
 
-// Gets the text content of an element with the given 'data-qa' attribute.
+// Gets the text content of an element with the given 'data-testid' attribute.
 export function getText<T>(
   fixture: ComponentFixture<T>,
   qaAttribute: string
@@ -46,7 +46,7 @@ export function getText<T>(
   return findEl(fixture, qaAttribute).nativeElement.textContent;
 }
 
-// Expects that the element with the given 'data-qa' attribute has the given text content.
+// Expects that the element with the given 'data-testid' attribute has the given text content.
 export function expectText<T>(
   fixture: ComponentFixture<T>,
   qaAttribute: string,
@@ -77,7 +77,7 @@ export function makeClickEvent(target: EventTarget): Partial<MouseEvent> {
   };
 }
 
-// Emulates a left click on the element with the given 'data-qa' attribute.
+// Emulates a left click on the element with the given 'data-testid' attribute.
 export function click<T>(
   fixture: ComponentFixture<T>,
   qaAttribute: string
@@ -90,7 +90,7 @@ export function click<T>(
 // Finds a nested component by its selector, e.g. 'app-example'.
 // Throws an error if no element was found.
 // Use this only for shallow component testing.
-// When finding other elements, use findEl(s) and data-qa attributes.
+// When finding other elements, use findEl(s) and data-testid attributes.
 export function findComponent<T>(
   fixture: ComponentFixture<T>,
   selector: string

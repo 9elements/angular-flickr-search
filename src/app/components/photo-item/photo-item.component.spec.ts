@@ -35,8 +35,8 @@ describe('PhotoItemComponent', () => {
   });
 
   it('focusses a photo on click', (done: DoneFn) => {
-    component.focusPhoto.subscribe((photo2: Photo) => {
-      expect(photo2).toBe(photo1);
+    component.focusPhoto.subscribe((otherPhoto: Photo) => {
+      expect(otherPhoto).toBe(photo1);
       done();
     });
 

@@ -11,8 +11,8 @@
     class="photo-list"></app-photo-list>
 
   <app-full-photo
-    *ngIf="currentPhoto$ | async"
-    [photo]="currentPhoto$ | async"
+    *ngIf="(currentPhoto$ | async) as currentPhoto"
+    [photo]="currentPhoto"
     class="full-photo"></app-full-photo>
 
 </div>
