@@ -69,14 +69,13 @@ describe('FlickrSearchComponent with spectator', () => {
   });
 
   it('renders the full photo when a photo is focussed', () => {
-    expect(() => {
-      spectator.query(FullPhotoComponent);
-    }).toThrow();
+    expect(fullPhoto).toBeNull();
 
     photoList.focusPhoto.emit(photo1);
 
     spectator.detectChanges();
 
+    fullPhoto = spectator.query(FullPhotoComponent);
     expect(fullPhoto.photo).toBe(photo1);
   });
 });

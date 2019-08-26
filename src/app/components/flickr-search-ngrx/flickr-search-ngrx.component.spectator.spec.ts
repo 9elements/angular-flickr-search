@@ -53,12 +53,12 @@ describe('FlickrSearchNgrxComponent with spectator', () => {
     setup({ photos: initialState });
 
     it('renders the search form and the photo list, not the full photo', () => {
-      expect(searchForm).toExist();
-      expect(photoList).toExist();
+      expect(searchForm).toBeTruthy();
+      expect(photoList).toBeTruthy();
       expect(photoList.title).toEqual(initialState.searchTerm);
       expect(photoList.photos).toEqual(initialState.photos);
 
-      expect(fullPhoto).not.toExist();
+      expect(fullPhoto).toBeNull();
     });
 
     it('searches', () => {

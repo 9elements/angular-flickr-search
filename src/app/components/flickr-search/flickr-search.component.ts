@@ -9,7 +9,6 @@ import { Photo } from '../../models/photo';
   styleUrls: ['./flickr-search.component.css']
 })
 export class FlickrSearchComponent {
-
   searchTerm = '';
   photos: Photo[] = [];
   currentPhoto: Photo | null = null;
