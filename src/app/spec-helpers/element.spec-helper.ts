@@ -4,12 +4,14 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+// Returns a selector for the 'data-testid' attribute with the given attribute value.
+function testIdSelector(testId: string): string {
+  return `[data-testid="${testId}"]`;
+}
+
 // Finds a single element with a CSS selector.
 // Throws an error if no element was found.
-function queryByCss<T>(
-  fixture: ComponentFixture<T>,
-  selector: string
-): DebugElement {
+function queryByCss<T>(fixture: ComponentFixture<T>, selector: string): DebugElement {
   // The return type of DebugElement#query() is declared as DebugElement,
   // but the actual return type is DebugElement | null.
   // See https://github.com/angular/angular/issues/22449.
@@ -23,43 +25,31 @@ function queryByCss<T>(
 
 // Finds an element with the given 'data-testid' attribute.
 // Throws an error if no element was found.
-export function findEl<T>(
-  fixture: ComponentFixture<T>,
-  qaAttribute: string
-): DebugElement {
-  return queryByCss<T>(fixture, `[data-testid="${qaAttribute}"]`);
+export function findEl<T>(fixture: ComponentFixture<T>, testId: string): DebugElement {
+  return queryByCss<T>(fixture, testIdSelector(testId));
 }
 
 // Finds all elements with the given 'data-testid' attribute.
-export function findEls<T>(
-  fixture: ComponentFixture<T>,
-  qaAttribute: string
-): DebugElement[] {
-  return fixture.debugElement.queryAll(By.css(`[data-testid="${qaAttribute}"]`));
+export function findEls<T>(fixture: ComponentFixture<T>, testId: string): DebugElement[] {
+  return fixture.debugElement.queryAll(By.css(testIdSelector(testId)));
 }
 
 // Gets the text content of an element with the given 'data-testid' attribute.
-export function getText<T>(
-  fixture: ComponentFixture<T>,
-  qaAttribute: string
-): string {
-  return findEl(fixture, qaAttribute).nativeElement.textContent;
+export function getText<T>(fixture: ComponentFixture<T>, testId: string): string {
+  return findEl(fixture, testId).nativeElement.textContent;
 }
 
 // Expects that the element with the given 'data-testid' attribute has the given text content.
 export function expectText<T>(
   fixture: ComponentFixture<T>,
-  qaAttribute: string,
+  testId: string,
   text: string
 ) {
-  expect(getText(fixture, qaAttribute).trim()).toBe(text);
+  expect(getText(fixture, testId).trim()).toBe(text);
 }
 
 // Expects that the element of a component has the given text content.
-export function expectContent<T>(
-  fixture: ComponentFixture<T>,
-  text: string
-) {
+export function expectContent<T>(fixture: ComponentFixture<T>, text: string) {
   expect(fixture.nativeElement.textContent.trim()).toBe(text);
 }
 
@@ -78,11 +68,8 @@ export function makeClickEvent(target: EventTarget): Partial<MouseEvent> {
 }
 
 // Emulates a left click on the element with the given 'data-testid' attribute.
-export function click<T>(
-  fixture: ComponentFixture<T>,
-  qaAttribute: string
-) {
-  const el = findEl(fixture, qaAttribute);
+export function click<T>(fixture: ComponentFixture<T>, testId: string) {
+  const el = findEl(fixture, testId);
   const event = makeClickEvent(el.nativeElement);
   el.triggerEventHandler('click', event);
 }
