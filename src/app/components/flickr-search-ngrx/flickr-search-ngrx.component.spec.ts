@@ -22,7 +22,7 @@ describe('FlickrSearchNgrxComponent', () => {
   let searchForm: DebugElement;
   let photoList: DebugElement;
 
-  function setup(state: AppState) {
+  function setup(state: AppState): void {
     TestBed.configureTestingModule({
       declarations: [FlickrSearchNgrxComponent],
       providers: [provideMockStore({ initialState: state })],

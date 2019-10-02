@@ -8,18 +8,16 @@ import { Photo } from '../../models/photo';
   styleUrls: ['./photo-item.component.css']
 })
 export class PhotoItemComponent {
-
   @Input()
-  photo: Photo | null = null;
+  public photo: Photo | null = null;
 
   @Output()
-  focusPhoto = new EventEmitter<Photo>();
+  public focusPhoto = new EventEmitter<Photo>();
 
-  handleClick(event: MouseEvent) {
+  public handleClick(event: MouseEvent): void {
     event.preventDefault();
     if (this.photo) {
       this.focusPhoto.emit(this.photo);
     }
   }
-
 }

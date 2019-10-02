@@ -6,13 +6,11 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./search-form.component.css']
 })
 export class SearchFormComponent {
-
   @Output()
-  search = new EventEmitter<string>();
+  public search = new EventEmitter<string>();
 
-  handleSearch(event: Event, searchTerm: string) {
+  public handleSearch(event: Event, searchTerm: string): void {
     event.preventDefault();
     this.search.emit(searchTerm);
   }
-
 }

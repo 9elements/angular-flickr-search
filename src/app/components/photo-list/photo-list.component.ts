@@ -8,18 +8,16 @@ import { Photo } from '../../models/photo';
   styleUrls: ['./photo-list.component.css']
 })
 export class PhotoListComponent {
+  @Input()
+  public title = '';
 
   @Input()
-  title = '';
-
-  @Input()
-  photos: Photo[] = [];
+  public photos: Photo[] = [];
 
   @Output()
-  focusPhoto = new EventEmitter<Photo>();
+  public focusPhoto = new EventEmitter<Photo>();
 
-  handleFocusPhoto(photo: Photo) {
+  public handleFocusPhoto(photo: Photo): void {
     this.focusPhoto.emit(photo);
   }
-
 }

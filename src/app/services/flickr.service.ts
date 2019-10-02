@@ -9,7 +9,7 @@ import { Photo } from '../models/photo';
 export class FlickrService {
   constructor(private http: HttpClient) {}
 
-  searchPublicPhotos(searchTerm: string): Observable<Photo[]> {
+  public searchPublicPhotos(searchTerm: string): Observable<Photo[]> {
     const encodedSearchTerm = encodeURIComponent(searchTerm);
     const url = `http://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
     return this.http.jsonp(url, 'jsoncallback').pipe(

@@ -44,21 +44,21 @@ export function expectText<T>(
   fixture: ComponentFixture<T>,
   testId: string,
   text: string
-) {
+): void {
   expect(getText(fixture, testId).trim()).toBe(text);
 }
 
 // Expects that the element of a component has the given text content.
-export function expectContent<T>(fixture: ComponentFixture<T>, text: string) {
+export function expectContent<T>(fixture: ComponentFixture<T>, text: string): void {
   expect(fixture.nativeElement.textContent.trim()).toBe(text);
 }
 
 // Makes a fake click event that provides the most important properties.
 export function makeClickEvent(target: EventTarget): Partial<MouseEvent> {
   return {
-    preventDefault() {},
-    stopPropagation() {},
-    stopImmediatePropagation() {},
+    preventDefault(): void {},
+    stopPropagation(): void {},
+    stopImmediatePropagation(): void {},
     type: 'click',
     target,
     currentTarget: target,
@@ -68,7 +68,7 @@ export function makeClickEvent(target: EventTarget): Partial<MouseEvent> {
 }
 
 // Emulates a left click on the element with the given 'data-testid' attribute.
-export function click<T>(fixture: ComponentFixture<T>, testId: string) {
+export function click<T>(fixture: ComponentFixture<T>, testId: string): void {
   const el = findEl(fixture, testId);
   const event = makeClickEvent(el.nativeElement);
   el.triggerEventHandler('click', event);

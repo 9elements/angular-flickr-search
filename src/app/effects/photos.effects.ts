@@ -13,7 +13,7 @@ export class PhotosEffects {
     private flickrService: FlickrService
   ) {}
 
-  search$ = createEffect(() =>
+  public search$ = createEffect(() =>
     this.actions$.pipe(
       ofType(search),
       mergeMap((action) =>

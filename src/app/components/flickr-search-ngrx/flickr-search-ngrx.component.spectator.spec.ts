@@ -27,7 +27,7 @@ describe('FlickrSearchNgrxComponent with spectator', () => {
   let photoList: PhotoListComponent;
   let fullPhoto: FullPhotoComponent;
 
-  function setup(state: AppState) {
+  function setup(state: AppState): void {
     create = createTestComponentFactory({
       component: FlickrSearchNgrxComponent,
       shallow: true,

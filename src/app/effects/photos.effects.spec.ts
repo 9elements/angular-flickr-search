@@ -2,19 +2,20 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action } from '@ngrx/store';
 import { from, Observable, of, throwError } from 'rxjs';
+import { toArray } from 'rxjs/operators';
 
 import { search, searchResultsLoaded } from '../actions/photos.actions';
+import { Photo } from '../models/photo';
 import { FlickrService } from '../services/flickr.service';
-import { searchTerm, photos } from '../spec-helpers/photo.spec-helper';
+import { photos, searchTerm } from '../spec-helpers/photo.spec-helper';
 import { PhotosEffects } from './photos.effects';
-import { toArray } from 'rxjs/operators';
 
 const searchAction = search({ searchTerm });
 
 type PartialFlickrService = Pick<FlickrService, 'searchPublicPhotos'>;
 
 const mockFlickrService: PartialFlickrService = {
-  searchPublicPhotos() {
+  searchPublicPhotos(): Observable<Photo[]> {
     return of(photos);
   }
 };
@@ -22,26 +23,18 @@ const mockFlickrService: PartialFlickrService = {
 const apiError = new Error('API Error');
 
 const mockErrorFlickrService: PartialFlickrService = {
-  searchPublicPhotos() {
+  searchPublicPhotos(): Observable<Photo[]> {
     return throwError(apiError);
   }
 };
 
-function expectActions(effect: Observable<Action>, actions: Action[]) {
-  effect
-    .pipe(toArray())
-    .subscribe(
-      (actualActions) => {
-        expect(actualActions).toEqual(actions);
-      },
-      fail
-    );
+function expectActions(effect: Observable<Action>, actions: Action[]): void {
+  effect.pipe(toArray()).subscribe((actualActions) => {
+    expect(actualActions).toEqual(actions);
+  }, fail);
 }
 
-function setup(
-  actions: Action[],
-  flickrService: PartialFlickrService
-): PhotosEffects {
+function setup(actions: Action[], flickrService: PartialFlickrService): PhotosEffects {
   spyOn(flickrService, 'searchPublicPhotos').and.callThrough();
 
   TestBed.configureTestingModule({
@@ -56,31 +49,23 @@ function setup(
 }
 
 describe('PhotosEffects', () => {
-
   it('gets the photos from flickr on search', () => {
-    const photosEffects = setup([ searchAction ], mockFlickrService);
+    const photosEffects = setup([searchAction], mockFlickrService);
 
-    expectActions(
-      photosEffects.search$,
-      [ searchResultsLoaded({ photos }) ]
-    );
+    expectActions(photosEffects.search$, [searchResultsLoaded({ photos })]);
 
     expect(mockFlickrService.searchPublicPhotos).toHaveBeenCalledWith(searchTerm);
   });
 
   it('handles errors from the service', () => {
     const photosEffects = setup(
-      [ searchAction, searchAction, searchAction ],
+      [searchAction, searchAction, searchAction],
       mockErrorFlickrService
     );
 
-    expectActions(
-      photosEffects.search$,
-      []
-    );
+    expectActions(photosEffects.search$, []);
 
     expect(mockErrorFlickrService.searchPublicPhotos).toHaveBeenCalledWith(searchTerm);
     expect(mockErrorFlickrService.searchPublicPhotos).toHaveBeenCalledTimes(3);
   });
-
 });

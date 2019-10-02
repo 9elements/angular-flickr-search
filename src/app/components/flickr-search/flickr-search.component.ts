@@ -9,13 +9,13 @@ import { Photo } from '../../models/photo';
   styleUrls: ['./flickr-search.component.css']
 })
 export class FlickrSearchComponent {
-  searchTerm = '';
-  photos: Photo[] = [];
-  currentPhoto: Photo | null = null;
+  public searchTerm = '';
+  public photos: Photo[] = [];
+  public currentPhoto: Photo | null = null;
 
   constructor(private http: HttpClient) {}
 
-  handleSearch(searchTerm: string) {
+  public handleSearch(searchTerm: string): void {
     // Make the JSONP request to Flickr
     const encodedSearchTerm = encodeURIComponent(searchTerm);
     const url = `http://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
@@ -26,8 +26,7 @@ export class FlickrSearchComponent {
     });
   }
 
-  handleFocusPhoto(photo: Photo) {
+  public handleFocusPhoto(photo: Photo): void {
     this.currentPhoto = photo;
   }
-
 }

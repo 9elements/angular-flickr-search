@@ -17,9 +17,9 @@ import { search, focusPhoto } from '../../actions/photos.actions';
   styleUrls: ['./flickr-search-ngrx.component.css']
 })
 export class FlickrSearchNgrxComponent {
-  searchTerm$: Observable<string>;
-  photos$: Observable<Photo[]>;
-  currentPhoto$: Observable<Photo | null>;
+  public searchTerm$: Observable<string>;
+  public photos$: Observable<Photo[]>;
+  public currentPhoto$: Observable<Photo | null>;
 
   constructor(private store$: Store<AppState>) {
     this.searchTerm$ = this.store$.pipe(select(searchTermSelector));
@@ -27,11 +27,11 @@ export class FlickrSearchNgrxComponent {
     this.currentPhoto$ = this.store$.pipe(select(currentPhotoSelector));
   }
 
-  handleSearch(searchTerm: string) {
+  public handleSearch(searchTerm: string): void {
     this.store$.dispatch(search({ searchTerm }));
   }
 
-  handleFocusPhoto(photo: Photo) {
+  public handleFocusPhoto(photo: Photo): void {
     this.store$.dispatch(focusPhoto({ photo }));
   }
 }

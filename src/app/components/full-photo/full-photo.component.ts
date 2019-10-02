@@ -10,6 +10,6 @@ import { Photo } from '../../models/photo';
 export class FullPhotoComponent {
 
   @Input()
-  photo: Photo | null = null;
+  public photo: Photo | null = null;
 
 }
