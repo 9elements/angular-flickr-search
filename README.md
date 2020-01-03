@@ -1,6 +1,8 @@
-# Flickr Search
+# Flickr Search – Angular workshop exercise
 
-Angular workshop exercise. Other versions:
+**[App structure plan (React version)](https://github.com/molily/learning-react/tree/master/5-flickr-search)**
+
+Other versions:
 
 - [Flickr Search with React](https://github.com/molily/learning-react/tree/master/5-flickr-search)
 - [Flickr Search with React and Redux](https://github.com/molily/learning-react/tree/master/7-flickr-search-redux)
