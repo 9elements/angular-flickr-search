@@ -1,4 +1,4 @@
-import { ActionReducerMap, MetaReducer } from '@ngrx/store';
+import { ActionReducerMap } from '@ngrx/store';
 
 import { PhotosStateSlice } from './photos-state-slice';
 import { photosReducer } from './photos.reducer';
