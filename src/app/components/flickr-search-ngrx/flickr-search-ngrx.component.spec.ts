@@ -10,7 +10,7 @@ import {
   photo1,
   searchTerm,
   stateWithCurrentPhoto,
-  stateWithPhotos
+  stateWithPhotos,
 } from '../../spec-helpers/photo.spec-helper';
 
 import { FlickrSearchNgrxComponent } from './flickr-search-ngrx.component';
@@ -26,7 +26,7 @@ describe('FlickrSearchNgrxComponent', () => {
     TestBed.configureTestingModule({
       declarations: [FlickrSearchNgrxComponent],
       providers: [provideMockStore({ initialState: state })],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     store$ = TestBed.get(Store);

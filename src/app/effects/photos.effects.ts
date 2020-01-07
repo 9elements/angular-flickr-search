@@ -8,20 +8,17 @@ import { FlickrService } from '../services/flickr.service';
 
 @Injectable()
 export class PhotosEffects {
-  constructor(
-    private actions$: Actions,
-    private flickrService: FlickrService
-  ) {}
+  constructor(private actions$: Actions, private flickrService: FlickrService) {}
 
   public search$ = createEffect(() =>
     this.actions$.pipe(
       ofType(search),
       mergeMap((action) =>
         this.flickrService.searchPublicPhotos(action.searchTerm).pipe(
-           map((photos) => searchResultsLoaded({ photos })),
-           catchError(() => EMPTY)
-         )
-      )
-    )
+          map((photos) => searchResultsLoaded({ photos })),
+          catchError(() => EMPTY),
+        ),
+      ),
+    ),
   );
 }

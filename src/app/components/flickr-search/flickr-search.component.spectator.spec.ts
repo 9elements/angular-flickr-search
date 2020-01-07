@@ -1,7 +1,7 @@
 import { HttpBackend, JsonpClientBackend } from '@angular/common/http';
 import {
   HttpClientTestingModule,
-  HttpTestingController
+  HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { createTestComponentFactory, Spectator } from '@netbasal/spectator';
@@ -25,13 +25,13 @@ describe('FlickrSearchComponent with spectator', () => {
     shallow: true,
     imports: [HttpClientTestingModule],
     declarations: [
-      MockComponents(SearchFormComponent, PhotoListComponent, FullPhotoComponent)
+      MockComponents(SearchFormComponent, PhotoListComponent, FullPhotoComponent),
     ],
     providers: [
       // See https://github.com/angular/angular/issues/20878 and
       // https://stackoverflow.com/questions/47703877/
-      { provide: JsonpClientBackend, useExisting: HttpBackend }
-    ]
+      { provide: JsonpClientBackend, useExisting: HttpBackend },
+    ],
   });
 
   beforeEach(() => {

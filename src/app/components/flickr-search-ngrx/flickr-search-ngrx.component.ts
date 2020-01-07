@@ -7,14 +7,14 @@ import { AppState } from '../../reducers';
 import {
   searchTermSelector,
   photosSelector,
-  currentPhotoSelector
+  currentPhotoSelector,
 } from '../../selectors/photos.selectors';
 import { search, focusPhoto } from '../../actions/photos.actions';
 
 @Component({
   selector: 'app-flickr-search-ngrx',
   templateUrl: './flickr-search-ngrx.component.html',
-  styleUrls: ['./flickr-search-ngrx.component.css']
+  styleUrls: ['./flickr-search-ngrx.component.css'],
 })
 export class FlickrSearchNgrxComponent {
   public searchTerm$: Observable<string>;

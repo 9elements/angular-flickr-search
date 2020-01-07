@@ -1,7 +1,7 @@
 import { HttpBackend, JsonpClientBackend } from '@angular/common/http';
 import {
   HttpClientTestingModule,
-  HttpTestingController
+  HttpTestingController,
 } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -24,9 +24,9 @@ describe('FlickrSearchComponent', () => {
       providers: [
         // See https://github.com/angular/angular/issues/20878 and
         // https://stackoverflow.com/questions/47703877/
-        { provide: JsonpClientBackend, useExisting: HttpBackend }
+        { provide: JsonpClientBackend, useExisting: HttpBackend },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

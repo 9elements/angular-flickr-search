@@ -8,7 +8,7 @@ describe('FullPhotoComponent with spectator', () => {
 
   const create = createTestComponentFactory({
     component: FullPhotoComponent,
-    shallow: true
+    shallow: true,
   });
 
   beforeEach(() => {

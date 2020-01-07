@@ -8,15 +8,15 @@ export const selectPhotos = createFeatureSelector<AppState, PhotosStateSlice>(fe
 
 export const searchTermSelector = createSelector(
   selectPhotos,
-  (photosStateSlice) => photosStateSlice.searchTerm
+  (photosStateSlice) => photosStateSlice.searchTerm,
 );
 
 export const photosSelector = createSelector(
   selectPhotos,
-  (photosStateSlice) => photosStateSlice.photos
+  (photosStateSlice) => photosStateSlice.photos,
 );
 
 export const currentPhotoSelector = createSelector(
   selectPhotos,
-  (photosStateSlice) => photosStateSlice.currentPhoto
+  (photosStateSlice) => photosStateSlice.currentPhoto,
 );

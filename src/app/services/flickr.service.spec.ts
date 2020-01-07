@@ -1,11 +1,7 @@
-import {
-  HttpBackend,
-  JsonpClientBackend,
-  HttpErrorResponse
-} from '@angular/common/http';
+import { HttpBackend, JsonpClientBackend, HttpErrorResponse } from '@angular/common/http';
 import {
   HttpClientTestingModule,
-  HttpTestingController
+  HttpTestingController,
 } from '@angular/common/http/testing';
 import { async, TestBed } from '@angular/core/testing';
 
@@ -26,8 +22,8 @@ describe('FlickrService', () => {
         // See https://github.com/angular/angular/issues/20878 and
         // https://stackoverflow.com/questions/47703877/
         { provide: JsonpClientBackend, useExisting: HttpBackend },
-        FlickrService
-      ]
+        FlickrService,
+      ],
     });
     flickrService = TestBed.get(FlickrService);
     controller = TestBed.get(HttpTestingController);
@@ -63,7 +59,7 @@ describe('FlickrService', () => {
         expect(error.status).toBe(status);
         expect(error.statusText).toBe(statusText);
       },
-      fail
+      fail,
     );
 
     controller

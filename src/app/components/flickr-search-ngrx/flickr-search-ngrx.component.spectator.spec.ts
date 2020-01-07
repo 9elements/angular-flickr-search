@@ -11,7 +11,7 @@ import {
   photo1,
   searchTerm,
   stateWithCurrentPhoto,
-  stateWithPhotos
+  stateWithPhotos,
 } from '../../spec-helpers/photo.spec-helper';
 import { FullPhotoComponent } from '../full-photo/full-photo.component';
 import { PhotoListComponent } from '../photo-list/photo-list.component';
@@ -32,9 +32,9 @@ describe('FlickrSearchNgrxComponent with spectator', () => {
       component: FlickrSearchNgrxComponent,
       shallow: true,
       declarations: [
-        MockComponents(SearchFormComponent, PhotoListComponent, FullPhotoComponent)
+        MockComponents(SearchFormComponent, PhotoListComponent, FullPhotoComponent),
       ],
-      providers: [provideMockStore({ initialState: state })]
+      providers: [provideMockStore({ initialState: state })],
     });
 
     beforeEach(() => {

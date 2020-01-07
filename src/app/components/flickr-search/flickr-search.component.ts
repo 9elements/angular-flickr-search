@@ -6,7 +6,7 @@ import { Photo } from '../../models/photo';
 @Component({
   selector: 'app-flickr-search',
   templateUrl: './flickr-search.component.html',
-  styleUrls: ['./flickr-search.component.css']
+  styleUrls: ['./flickr-search.component.css'],
 })
 export class FlickrSearchComponent {
   public searchTerm = '';
