@@ -25,7 +25,7 @@ import { FlickrService } from './services/flickr.service';
     SearchFormComponent,
     PhotoListComponent,
     PhotoItemComponent,
-    FullPhotoComponent
+    FullPhotoComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,13 +34,13 @@ import { FlickrService } from './services/flickr.service';
     StoreModule.forRoot(reducers, {
       runtimeChecks: {
         strictStateImmutability: true,
-        strictActionImmutability: true
-      }
+        strictActionImmutability: true,
+      },
     }),
     EffectsModule.forRoot([PhotosEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [FlickrService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
