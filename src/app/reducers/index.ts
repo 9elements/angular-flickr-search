@@ -1,6 +1,5 @@
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 
-import { environment } from '../../environments/environment';
 import { PhotosStateSlice } from './photos-state-slice';
 import { photosReducer } from './photos.reducer';
 
