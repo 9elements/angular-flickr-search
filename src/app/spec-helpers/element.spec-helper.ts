@@ -39,11 +39,12 @@ export function getText<T>(fixture: ComponentFixture<T>, testId: string): string
   return findEl(fixture, testId).nativeElement.textContent;
 }
 
-// Expects that the element with the given 'data-testid' attribute has the given text content.
+// Expects that the element with the given 'data-testid' attribute
+// has the given text content.
 export function expectText<T>(
   fixture: ComponentFixture<T>,
   testId: string,
-  text: string
+  text: string,
 ): void {
   expect(getText(fixture, testId).trim()).toBe(text);
 }
@@ -51,6 +52,15 @@ export function expectText<T>(
 // Expects that the element of a component has the given text content.
 export function expectContent<T>(fixture: ComponentFixture<T>, text: string): void {
   expect(fixture.nativeElement.textContent.trim()).toBe(text);
+}
+
+// Sets the value of a form field with the given 'data-testid' attribute.
+export function setFieldValue<T>(
+  fixture: ComponentFixture<T>,
+  testId: string,
+  value: string,
+): void {
+  findEl(fixture, testId).nativeElement.value = value;
 }
 
 // Makes a fake click event that provides the most important properties.
@@ -63,7 +73,7 @@ export function makeClickEvent(target: EventTarget): Partial<MouseEvent> {
     target,
     currentTarget: target,
     bubbles: true,
-    cancelable: true
+    cancelable: true,
   };
 }
 
@@ -80,7 +90,7 @@ export function click<T>(fixture: ComponentFixture<T>, testId: string): void {
 // When finding other elements, use findEl(s) and data-testid attributes.
 export function findComponent<T>(
   fixture: ComponentFixture<T>,
-  selector: string
+  selector: string,
 ): DebugElement {
   return queryByCss(fixture, selector);
 }
@@ -88,7 +98,7 @@ export function findComponent<T>(
 // Finds all nested components by its selector, e.g. 'app-example'.
 export function findComponents<T>(
   fixture: ComponentFixture<T>,
-  selector: string
+  selector: string,
 ): DebugElement[] {
   return fixture.debugElement.queryAll(By.css(selector));
 }
