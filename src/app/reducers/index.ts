@@ -11,6 +11,3 @@ export interface AppState {
 export const reducers: ActionReducerMap<AppState> = {
   photos: photosReducer
 };
-
-
-export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];

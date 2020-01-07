@@ -14,7 +14,7 @@ import { PhotoItemComponent } from './components/photo-item/photo-item.component
 import { PhotoListComponent } from './components/photo-list/photo-list.component';
 import { SearchFormComponent } from './components/search-form/search-form.component';
 import { PhotosEffects } from './effects/photos.effects';
-import { metaReducers, reducers } from './reducers';
+import { reducers } from './reducers';
 import { FlickrService } from './services/flickr.service';
 
 @NgModule({
@@ -32,7 +32,6 @@ import { FlickrService } from './services/flickr.service';
     HttpClientModule,
     HttpClientJsonpModule,
     StoreModule.forRoot(reducers, {
-      metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true
