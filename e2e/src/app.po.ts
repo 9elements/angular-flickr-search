@@ -5,7 +5,7 @@ export class AppPage {
     return browser.get('/');
   }
 
-  public getParagraphText(): promise.Promise<string> {
+  public getHeadingText(): promise.Promise<string> {
     return element(by.css('app-root h1')).getText();
   }
 }
