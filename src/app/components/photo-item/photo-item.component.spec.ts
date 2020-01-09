@@ -12,10 +12,9 @@ describe('PhotoItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PhotoItemComponent ],
-      schemas: [ NO_ERRORS_SCHEMA ]
-    })
-    .compileComponents();
+      declarations: [PhotoItemComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -41,5 +40,19 @@ describe('PhotoItemComponent', () => {
     });
 
     click(fixture, 'link');
+  });
+
+  it('does nothing on click when the photo is null', () => {
+    component.photo = null;
+    fixture.detectChanges();
+
+    component.focusPhoto.subscribe(fail);
+
+    // We cannot click on the link since it does not exist.
+    // As an exception, call the handler directly.
+    // Normally, you should not do this.
+    component.handleClick(new MouseEvent('click'));
+
+    expect().nothing();
   });
 });
