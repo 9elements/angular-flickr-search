@@ -4,7 +4,6 @@ import { SearchFormComponent } from './search-form.component';
 const searchTerm = 'flowers';
 
 describe('SearchFormComponent with spectator', () => {
-
   let spectator: Spectator<SearchFormComponent>;
 
   const create = createTestComponentFactory({
@@ -22,11 +21,10 @@ describe('SearchFormComponent with spectator', () => {
       done();
     });
 
-    const searchTermInput: HTMLFormElement = spectator.query(byTestId('searchTermInput'));
+    const searchTermInput = spectator.query(byTestId('searchTermInput'));
     spectator.typeInElement(searchTerm, searchTermInput);
 
-    const form: HTMLFormElement = spectator.query(byTestId('form'));
+    const form = spectator.query(byTestId('form'));
     spectator.dispatchFakeEvent(form, 'submit');
   });
-
 });
