@@ -6,7 +6,7 @@ import { PhotosStateSlice } from './photos-state-slice';
 export const initialState: PhotosStateSlice = {
   searchTerm: '',
   photos: [],
-  currentPhoto: null
+  currentPhoto: null,
 };
 
 export const photosReducer = createReducer(
@@ -14,14 +14,14 @@ export const photosReducer = createReducer(
   on(search, (state, { searchTerm }) => ({
     ...state,
     searchTerm,
-    currentPhoto: null
+    currentPhoto: null,
   })),
   on(searchResultsLoaded, (state, { photos }) => ({
     ...state,
-    photos
+    photos,
   })),
-  on(focusPhoto, (state, action) => ({
+  on(focusPhoto, (state, { photo }) => ({
     ...state,
-    currentPhoto: action.photo
+    currentPhoto: photo,
   })),
 );
