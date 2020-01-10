@@ -1,4 +1,4 @@
-import { byTestId, createTestComponentFactory, Spectator } from '@netbasal/spectator';
+import { byTestId, createComponentFactory, Spectator } from '@ngneat/spectator';
 
 import { photo1 } from '../../spec-helpers/photo.spec-helper';
 import { FullPhotoComponent } from './full-photo.component';
@@ -6,13 +6,13 @@ import { FullPhotoComponent } from './full-photo.component';
 describe('FullPhotoComponent with spectator', () => {
   let spectator: Spectator<FullPhotoComponent>;
 
-  const create = createTestComponentFactory({
+  const createComponent = createComponentFactory({
     component: FullPhotoComponent,
     shallow: true,
   });
 
   beforeEach(() => {
-    spectator = create({ photo: photo1 });
+    spectator = createComponent({ props: { photo: photo1 } });
   });
 
   it('renders the photo information', () => {

@@ -1,4 +1,4 @@
-import { byTestId, createTestComponentFactory, Spectator } from '@netbasal/spectator';
+import { byTestId, createComponentFactory, Spectator } from '@ngneat/spectator';
 
 import { Photo } from '../../models/photo';
 import { photo1 } from '../../spec-helpers/photo.spec-helper';
@@ -7,13 +7,13 @@ import { PhotoItemComponent } from './photo-item.component';
 describe('PhotoItemComponent with spectator', () => {
   let spectator: Spectator<PhotoItemComponent>;
 
-  const create = createTestComponentFactory({
+  const createComponent = createComponentFactory({
     component: PhotoItemComponent,
-    shallow: true
+    shallow: true,
   });
 
   beforeEach(() => {
-    spectator = create({ photo: photo1 });
+    spectator = createComponent({ props: { photo: photo1 } });
   });
 
   it('renders a link and a thumbnail', () => {
@@ -31,9 +31,10 @@ describe('PhotoItemComponent with spectator', () => {
       done();
     });
 
-    spectator.click(
-      spectator.query(byTestId('link'))
-    );
+    const link = spectator.query(byTestId('link'));
+    if (!link) {
+      throw new Error('link not found');
+    }
+    spectator.click(link);
   });
-
 });

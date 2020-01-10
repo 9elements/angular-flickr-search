@@ -4,7 +4,7 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { createTestComponentFactory, Spectator } from '@netbasal/spectator';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { MockComponents } from 'ng-mocks';
 
 import { photo1, photos } from '../../spec-helpers/photo.spec-helper';
@@ -16,11 +16,11 @@ import { FlickrSearchComponent } from './flickr-search.component';
 describe('FlickrSearchComponent with spectator', () => {
   let spectator: Spectator<FlickrSearchComponent>;
 
-  let searchForm: SearchFormComponent;
-  let photoList: PhotoListComponent;
-  let fullPhoto: FullPhotoComponent;
+  let searchForm: SearchFormComponent | null;
+  let photoList: PhotoListComponent | null;
+  let fullPhoto: FullPhotoComponent | null;
 
-  const create = createTestComponentFactory({
+  const createComponent = createComponentFactory({
     component: FlickrSearchComponent,
     shallow: true,
     imports: [HttpClientTestingModule],
@@ -35,20 +35,23 @@ describe('FlickrSearchComponent with spectator', () => {
   });
 
   beforeEach(() => {
-    spectator = create();
+    spectator = createComponent();
 
     searchForm = spectator.query(SearchFormComponent);
     photoList = spectator.query(PhotoListComponent);
     fullPhoto = spectator.query(FullPhotoComponent);
   });
 
-  it('renders a search form', () => {
+  it('renders the search form and the photo list, not the full photo', () => {
     expect(searchForm).toBeTruthy();
-    expect(searchForm).toBeTruthy();
-    expect(searchForm).toBeTruthy();
+    expect(photoList).toBeTruthy();
+    expect(fullPhoto).toBeNull();
   });
 
   it('searches and passes the resulting photos to the photo list', () => {
+    if (!(photoList && searchForm)) {
+      throw new Error('photoList or searchForm not found');
+    }
     expect(photoList.title).toBe('');
     expect(photoList.photos).toEqual([]);
 
@@ -71,11 +74,17 @@ describe('FlickrSearchComponent with spectator', () => {
   it('renders the full photo when a photo is focussed', () => {
     expect(fullPhoto).toBeNull();
 
+    if (!photoList) {
+      throw new Error('photoList not found');
+    }
     photoList.focusPhoto.emit(photo1);
 
     spectator.detectChanges();
 
     fullPhoto = spectator.query(FullPhotoComponent);
+    if (!fullPhoto) {
+      throw new Error('fullPhoto not found');
+    }
     expect(fullPhoto.photo).toBe(photo1);
   });
 });

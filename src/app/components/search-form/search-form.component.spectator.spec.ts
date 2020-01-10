@@ -1,4 +1,4 @@
-import { Spectator, createTestComponentFactory, byTestId } from '@netbasal/spectator';
+import { Spectator, createComponentFactory, byTestId } from '@ngneat/spectator';
 import { SearchFormComponent } from './search-form.component';
 
 const searchTerm = 'flowers';
@@ -6,13 +6,13 @@ const searchTerm = 'flowers';
 describe('SearchFormComponent with spectator', () => {
   let spectator: Spectator<SearchFormComponent>;
 
-  const create = createTestComponentFactory({
+  const createComponent = createComponentFactory({
     component: SearchFormComponent,
     shallow: true,
   });
 
   beforeEach(() => {
-    spectator = create();
+    spectator = createComponent();
   });
 
   it('starts a search', (done: DoneFn) => {
@@ -22,9 +22,15 @@ describe('SearchFormComponent with spectator', () => {
     });
 
     const searchTermInput = spectator.query(byTestId('searchTermInput'));
+    if (!searchTermInput) {
+      throw new Error('searchTermInput not found');
+    }
     spectator.typeInElement(searchTerm, searchTermInput);
 
     const form = spectator.query(byTestId('form'));
+    if (!form) {
+      throw new Error('form not found');
+    }
     spectator.dispatchFakeEvent(form, 'submit');
   });
 });

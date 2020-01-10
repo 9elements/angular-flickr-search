@@ -1,4 +1,4 @@
-import { byTestId, createTestComponentFactory, Spectator } from '@netbasal/spectator';
+import { byTestId, createComponentFactory, Spectator } from '@ngneat/spectator';
 import { MockComponent } from 'ng-mocks';
 
 import { photo1, photo2 } from '../../spec-helpers/photo.spec-helper';
@@ -12,14 +12,14 @@ const photos = [photo1, photo2];
 describe('PhotoListComponent with spectator', () => {
   let spectator: Spectator<PhotoListComponent>;
 
-  const create = createTestComponentFactory({
+  const createComponent = createComponentFactory({
     component: PhotoListComponent,
     declarations: [MockComponent(PhotoItemComponent)],
-    shallow: true
+    shallow: true,
   });
 
   beforeEach(() => {
-    spectator = create({ title, photos });
+    spectator = createComponent({ props: { title, photos } });
   });
 
   it('renders the title', () => {
@@ -36,6 +36,9 @@ describe('PhotoListComponent with spectator', () => {
 
   it('focusses a photo', (done: DoneFn) => {
     const photoItem = spectator.query(PhotoItemComponent);
+    if (!photoItem) {
+      throw new Error('photoItem not found');
+    }
 
     spectator.component.focusPhoto.subscribe((otherPhoto: Photo) => {
       expect(otherPhoto).toBe(photo1);

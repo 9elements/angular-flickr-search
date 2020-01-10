@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { createTestComponentFactory, Spectator } from '@netbasal/spectator';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { MockComponents } from 'ng-mocks';
@@ -23,12 +23,12 @@ describe('FlickrSearchNgrxComponent with spectator', () => {
   let store$: Store<AppState>;
   let create: () => Spectator<FlickrSearchNgrxComponent>;
 
-  let searchForm: SearchFormComponent;
-  let photoList: PhotoListComponent;
-  let fullPhoto: FullPhotoComponent;
+  let searchForm: SearchFormComponent | null;
+  let photoList: PhotoListComponent | null;
+  let fullPhoto: FullPhotoComponent | null;
 
   function setup(state: AppState): void {
-    create = createTestComponentFactory({
+    create = createComponentFactory({
       component: FlickrSearchNgrxComponent,
       shallow: true,
       declarations: [
@@ -53,8 +53,9 @@ describe('FlickrSearchNgrxComponent with spectator', () => {
     setup({ photos: initialState });
 
     it('renders the search form and the photo list, not the full photo', () => {
-      expect(searchForm).toBeTruthy();
-      expect(photoList).toBeTruthy();
+      if (!photoList) {
+        throw new Error('photoList not found');
+      }
       expect(photoList.title).toEqual(initialState.searchTerm);
       expect(photoList.photos).toEqual(initialState.photos);
 
@@ -62,6 +63,10 @@ describe('FlickrSearchNgrxComponent with spectator', () => {
     });
 
     it('searches', () => {
+      if (!searchForm) {
+        throw new Error('searchForm not found');
+      }
+
       searchForm.search.emit(searchTerm);
 
       expect(store$.dispatch).toHaveBeenCalledWith(search({ searchTerm }));
@@ -72,10 +77,17 @@ describe('FlickrSearchNgrxComponent with spectator', () => {
     setup({ photos: stateWithPhotos });
 
     it('passes the photos to the photo list', () => {
+      if (!photoList) {
+        throw new Error('photoList not found');
+      }
       expect(photoList.photos).toEqual(stateWithPhotos.photos);
     });
 
     it('focusses a photo', () => {
+      if (!photoList) {
+        throw new Error('photoList not found');
+      }
+
       photoList.focusPhoto.emit(photo1);
 
       expect(store$.dispatch).toHaveBeenCalledWith(focusPhoto({ photo: photo1 }));
@@ -86,6 +98,9 @@ describe('FlickrSearchNgrxComponent with spectator', () => {
     setup({ photos: stateWithCurrentPhoto });
 
     it('renders the full photo', () => {
+      if (!fullPhoto) {
+        throw new Error('fullPhoto not found');
+      }
       expect(fullPhoto.photo).toEqual(photo1);
     });
   });
