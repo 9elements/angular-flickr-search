@@ -29,7 +29,7 @@ describe('FlickrSearchNgrxComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
-    store$ = TestBed.get(Store);
+    store$ = TestBed.inject(Store);
     spyOn(store$, 'dispatch');
 
     fixture = TestBed.createComponent(FlickrSearchNgrxComponent);

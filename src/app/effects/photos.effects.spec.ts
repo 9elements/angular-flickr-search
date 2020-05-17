@@ -17,7 +17,7 @@ type PartialFlickrService = Pick<FlickrService, 'searchPublicPhotos'>;
 const mockFlickrService: PartialFlickrService = {
   searchPublicPhotos(): Observable<Photo[]> {
     return of(photos);
-  }
+  },
 };
 
 const apiError = new Error('API Error');
@@ -25,7 +25,7 @@ const apiError = new Error('API Error');
 const mockErrorFlickrService: PartialFlickrService = {
   searchPublicPhotos(): Observable<Photo[]> {
     return throwError(apiError);
-  }
+  },
 };
 
 function expectActions(effect: Observable<Action>, actions: Action[]): void {
@@ -41,11 +41,11 @@ function setup(actions: Action[], flickrService: PartialFlickrService): PhotosEf
     providers: [
       provideMockActions(from(actions)),
       { provide: FlickrService, useValue: flickrService },
-      PhotosEffects
-    ]
+      PhotosEffects,
+    ],
   });
 
-  return TestBed.get(PhotosEffects);
+  return TestBed.inject(PhotosEffects);
 }
 
 describe('PhotosEffects', () => {
@@ -60,7 +60,7 @@ describe('PhotosEffects', () => {
   it('handles errors from the service', () => {
     const photosEffects = setup(
       [searchAction, searchAction, searchAction],
-      mockErrorFlickrService
+      mockErrorFlickrService,
     );
 
     expectActions(photosEffects.search$, []);

@@ -25,8 +25,8 @@ describe('FlickrService', () => {
         FlickrService,
       ],
     });
-    flickrService = TestBed.get(FlickrService);
-    controller = TestBed.get(HttpTestingController);
+    flickrService = TestBed.inject(FlickrService);
+    controller = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {

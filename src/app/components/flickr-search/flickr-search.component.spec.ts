@@ -54,7 +54,7 @@ describe('FlickrSearchComponent', () => {
     const searchTerm = 'beautiful flowers';
     searchForm.triggerEventHandler('search', searchTerm);
 
-    const httpMock: HttpTestingController = TestBed.get(HttpTestingController);
+    const httpMock: HttpTestingController = TestBed.inject(HttpTestingController);
     const encodedSearchTerm = encodeURIComponent(searchTerm);
     const expectedUrl = `https://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
     const matchedRequest = httpMock.expectOne((request) => request.url === expectedUrl);

@@ -38,7 +38,7 @@ describe('FlickrSearchNgrxComponent with spectator', () => {
     });
 
     beforeEach(() => {
-      store$ = TestBed.get(Store);
+      store$ = TestBed.inject(Store);
       spyOn(store$, 'dispatch');
 
       spectator = create();
