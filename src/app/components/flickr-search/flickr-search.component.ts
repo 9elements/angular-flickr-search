@@ -18,7 +18,7 @@ export class FlickrSearchComponent {
   public handleSearch(searchTerm: string): void {
     // Make the JSONP request to Flickr
     const encodedSearchTerm = encodeURIComponent(searchTerm);
-    const url = `http://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
+    const url = `https://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
     this.http.jsonp(url, 'jsoncallback').subscribe((data: any) => {
       this.searchTerm = searchTerm;
       this.photos = data.items;

@@ -6,7 +6,7 @@ import { photos, searchTerm } from '../spec-helpers/photo.spec-helper';
 import { FlickrService } from './flickr.service';
 
 const encodedSearchTerm = encodeURIComponent(searchTerm);
-const expectedUrl = `http://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
+const expectedUrl = `https://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
 
 describe('FlickrService', () => {
   const createHttp = createHttpFactory({

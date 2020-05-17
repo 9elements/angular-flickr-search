@@ -11,9 +11,7 @@ export class FlickrService {
 
   public searchPublicPhotos(searchTerm: string): Observable<Photo[]> {
     const encodedSearchTerm = encodeURIComponent(searchTerm);
-    const url = `http://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
-    return this.http.jsonp(url, 'jsoncallback').pipe(
-      map((data: any) => data.items),
-    );
+    const url = `https://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
+    return this.http.jsonp(url, 'jsoncallback').pipe(map((data: any) => data.items));
   }
 }

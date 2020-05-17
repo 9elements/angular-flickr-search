@@ -9,7 +9,7 @@ import { FlickrService } from './flickr.service';
 import { searchTerm, photos } from '../spec-helpers/photo.spec-helper';
 
 const encodedSearchTerm = encodeURIComponent(searchTerm);
-const expectedUrl = `http://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
+const expectedUrl = `https://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
 
 describe('FlickrService', () => {
   let flickrService: FlickrService;
