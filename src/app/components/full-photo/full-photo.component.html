@@ -1,8 +1,7 @@
 <ng-container *ngIf="photo">
-
   <h2 data-testid="title">{{ photo.title }}</h2>
 
-  <p><img src="{{ photo.media.m }}" alt="{{ photo.title }}" data-testid="image"></p>
+  <p><img src="{{ photo.media.m }}" alt="{{ photo.title }}" data-testid="image" /></p>
 
   <p data-testid="author">{{ photo.author }}</p>
 
@@ -10,6 +9,7 @@
 
   <p data-testid="tags">{{ photo.tags }}</p>
 
-  <p><a href="{{ photo.link }}" data-testid="link">{{ photo.link }}</a></p>
-
+  <p>
+    <a href="{{ photo.link }}" data-testid="link" target="_top">{{ photo.link }}</a>
+  </p>
 </ng-container>
