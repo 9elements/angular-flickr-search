@@ -1,11 +1,8 @@
-import { HttpBackend, JsonpClientBackend } from '@angular/common/http';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { createComponentFactory, mockProvider, Spectator } from '@ngneat/spectator';
 import { MockComponents } from 'ng-mocks';
+import { of } from 'rxjs';
+import { FlickrService } from 'src/app/services/flickr.service';
 
 import { photo1, photos } from '../../spec-helpers/photo.spec-helper';
 import { FullPhotoComponent } from '../full-photo/full-photo.component';
@@ -27,15 +24,13 @@ describe('FlickrSearchComponent with spectator', () => {
     declarations: [
       MockComponents(SearchFormComponent, PhotoListComponent, FullPhotoComponent),
     ],
-    providers: [
-      // See https://github.com/angular/angular/issues/20878 and
-      // https://stackoverflow.com/questions/47703877/
-      { provide: JsonpClientBackend, useExisting: HttpBackend },
-    ],
+    providers: [mockProvider(FlickrService)],
   });
 
   beforeEach(() => {
     spectator = createComponent();
+
+    spectator.inject(FlickrService).searchPublicPhotos.and.returnValue(of(photos));
 
     searchForm = spectator.query(SearchFormComponent);
     photoList = spectator.query(PhotoListComponent);
@@ -52,21 +47,13 @@ describe('FlickrSearchComponent with spectator', () => {
     if (!(photoList && searchForm)) {
       throw new Error('photoList or searchForm not found');
     }
-    expect(photoList.title).toBe('');
-    expect(photoList.photos).toEqual([]);
-
     const searchTerm = 'beautiful flowers';
     searchForm.search.emit(searchTerm);
 
-    const httpMock: HttpTestingController = TestBed.inject(HttpTestingController);
-    const encodedSearchTerm = encodeURIComponent(searchTerm);
-    const expectedUrl = `https://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
-    const matchedRequest = httpMock.expectOne((request) => request.url === expectedUrl);
-    matchedRequest.flush({ items: photos });
-    httpMock.verify();
-
     spectator.detectChanges();
 
+    const flickrService = spectator.inject(FlickrService);
+    expect(flickrService.searchPublicPhotos).toHaveBeenCalledWith(searchTerm);
     expect(photoList.title).toBe(searchTerm);
     expect(photoList.photos).toBe(photos);
   });

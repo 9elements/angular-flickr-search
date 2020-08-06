@@ -1,31 +1,32 @@
-import { HttpBackend, JsonpClientBackend } from '@angular/common/http';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
-import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { FlickrService } from 'src/app/services/flickr.service';
+
 import { findComponent } from '../../spec-helpers/element.spec-helper';
 import { photo1, photos } from '../../spec-helpers/photo.spec-helper';
-
 import { FlickrSearchComponent } from './flickr-search.component';
 
 describe('FlickrSearchComponent', () => {
   let fixture: ComponentFixture<FlickrSearchComponent>;
   let component: FlickrSearchComponent;
+  let flickrServiceMock: Pick<FlickrService, keyof FlickrService>;
 
   let searchForm: DebugElement;
   let photoList: DebugElement;
 
   beforeEach(async(() => {
+    flickrServiceMock = {
+      searchPublicPhotos: jasmine
+        .createSpy('searchPublicPhotos')
+        .and.returnValue(of(photos)),
+    };
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       declarations: [FlickrSearchComponent],
-      providers: [
-        // See https://github.com/angular/angular/issues/20878 and
-        // https://stackoverflow.com/questions/47703877/
-        { provide: JsonpClientBackend, useExisting: HttpBackend },
-      ],
+      providers: [{ provide: FlickrService, useValue: flickrServiceMock }],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -53,16 +54,9 @@ describe('FlickrSearchComponent', () => {
   it('searches and passes the resulting photos to the photo list', () => {
     const searchTerm = 'beautiful flowers';
     searchForm.triggerEventHandler('search', searchTerm);
-
-    const httpMock: HttpTestingController = TestBed.inject(HttpTestingController);
-    const encodedSearchTerm = encodeURIComponent(searchTerm);
-    const expectedUrl = `https://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
-    const matchedRequest = httpMock.expectOne((request) => request.url === expectedUrl);
-    matchedRequest.flush({ items: photos });
-    httpMock.verify();
-
     fixture.detectChanges();
 
+    expect(flickrServiceMock.searchPublicPhotos).toHaveBeenCalledWith(searchTerm);
     expect(photoList.properties.title).toBe(searchTerm);
     expect(photoList.properties.photos).toBe(photos);
   });
