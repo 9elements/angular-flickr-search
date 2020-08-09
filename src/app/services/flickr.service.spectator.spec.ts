@@ -1,21 +1,16 @@
-import { HttpBackend, HttpErrorResponse, JsonpClientBackend } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { async } from '@angular/core/testing';
-import { createHttpFactory } from '@ngneat/spectator';
+import { createHttpFactory, HttpMethod } from '@ngneat/spectator';
 
-import { photos, searchTerm } from '../spec-helpers/photo.spec-helper';
+import { flickrPhotos, photos, searchTerm } from '../spec-helpers/photo.spec-helper';
 import { FlickrService } from './flickr.service';
 
 const encodedSearchTerm = encodeURIComponent(searchTerm);
-const expectedUrl = `https://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
+const expectedUrl = `https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=c3050d39a5bb308d9921bef0e15c437d&tags=${encodedSearchTerm}&tag_mode=all&media=photos&per_page=15&extras=tags,date_taken,owner_name,url_q,url_m`;
 
 describe('FlickrService', () => {
   const createHttp = createHttpFactory({
     service: FlickrService,
-    providers: [
-      // See https://github.com/angular/angular/issues/20878 and
-      // https://stackoverflow.com/questions/47703877/
-      { provide: JsonpClientBackend, useExisting: HttpBackend },
-    ],
   });
 
   it('searches for public photos', async(() => {
@@ -25,13 +20,11 @@ describe('FlickrService', () => {
       expect(foundPhotos).toEqual(photos);
     });
 
-    controller
-      .expectOne((request) => request.url === expectedUrl)
-      .flush({ items: photos });
+    controller.expectOne(expectedUrl).flush({ photos: { photo: flickrPhotos } });
   }));
 
   it('passes through search errors', async(() => {
-    const { service, controller } = createHttp();
+    const { service, expectOne } = createHttp();
 
     const status = 500;
     const statusText = 'Server error';
@@ -47,9 +40,7 @@ describe('FlickrService', () => {
       fail,
     );
 
-    controller
-      .expectOne((request) => request.url === expectedUrl)
-      .error(errorEvent, { status, statusText });
-    controller.verify();
+    expectOne(expectedUrl, HttpMethod.GET).error(errorEvent, { status, statusText });
+    // Spectator verifies the HTTP testing controller automatically
   }));
 });

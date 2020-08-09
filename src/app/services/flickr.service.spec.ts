@@ -1,15 +1,15 @@
-import { HttpBackend, JsonpClientBackend, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { async, TestBed } from '@angular/core/testing';
 
+import { flickrPhotos, photos, searchTerm } from '../spec-helpers/photo.spec-helper';
 import { FlickrService } from './flickr.service';
-import { searchTerm, photos } from '../spec-helpers/photo.spec-helper';
 
 const encodedSearchTerm = encodeURIComponent(searchTerm);
-const expectedUrl = `https://api.flickr.com/services/feeds/photos_public.gne?tags=${encodedSearchTerm}&tagmode=all&format=json`;
+const expectedUrl = `https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=c3050d39a5bb308d9921bef0e15c437d&tags=${encodedSearchTerm}&tag_mode=all&media=photos&per_page=15&extras=tags,date_taken,owner_name,url_q,url_m`;
 
 describe('FlickrService', () => {
   let flickrService: FlickrService;
@@ -18,12 +18,7 @@ describe('FlickrService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [
-        // See https://github.com/angular/angular/issues/20878 and
-        // https://stackoverflow.com/questions/47703877/
-        { provide: JsonpClientBackend, useExisting: HttpBackend },
-        FlickrService,
-      ],
+      providers: [FlickrService],
     });
     flickrService = TestBed.inject(FlickrService);
     controller = TestBed.inject(HttpTestingController);
@@ -38,13 +33,7 @@ describe('FlickrService', () => {
       expect(foundPhotos).toEqual(photos);
     });
 
-    controller
-      // Normally, we could write .expectOne(expectedUrl) here.
-      // But this would check against the full URL containing
-      // the dynamic "jsoncallback=?" parameter.
-      // In contrast, request.url lacks the "jsoncallback" parameter.
-      .expectOne((request) => request.url === expectedUrl)
-      .flush({ items: photos });
+    controller.expectOne(expectedUrl).flush({ photos: { photo: flickrPhotos } });
   }));
 
   it('passes through search errors', async(() => {
@@ -62,9 +51,7 @@ describe('FlickrService', () => {
       fail,
     );
 
-    controller
-      .expectOne((request) => request.url === expectedUrl)
-      .error(errorEvent, { status, statusText });
+    controller.expectOne(expectedUrl).error(errorEvent, { status, statusText });
     controller.verify();
   }));
 });

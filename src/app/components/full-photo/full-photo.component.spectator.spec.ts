@@ -19,11 +19,11 @@ describe('FullPhotoComponent with spectator', () => {
     expect(spectator.query(byTestId('title'))).toHaveText(photo1.title);
 
     const img = spectator.query(byTestId('image'));
-    expect(img).toHaveAttribute('src', photo1.media.m);
+    expect(img).toHaveAttribute('src', photo1.urlM);
     expect(img).toHaveAttribute('alt', photo1.title);
 
-    expect(spectator.query(byTestId('author'))).toHaveText(photo1.author);
-    expect(spectator.query(byTestId('date_taken'))).toHaveText(photo1.date_taken);
+    expect(spectator.query(byTestId('ownerName'))).toHaveText(photo1.ownerName);
+    expect(spectator.query(byTestId('dateTaken'))).toHaveText(photo1.dateTaken);
     expect(spectator.query(byTestId('tags'))).toHaveText(photo1.tags);
 
     const link = spectator.query(byTestId('link'));

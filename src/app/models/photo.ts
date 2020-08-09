@@ -1,11 +1,10 @@
 export interface Photo {
-  title: string;
+  id: string;
   link: string;
-  media: { m: string };
-  date_taken: string;
-  description: string;
-  published: string;
-  author: string;
-  author_id: string;
+  title: string;
   tags: string;
+  ownerName: string;
+  dateTaken: string;
+  urlQ: string;
+  urlM: string;
 }

@@ -21,7 +21,7 @@ describe('PhotoItemComponent with spectator', () => {
     expect(link).toHaveAttribute('href', photo1.link);
 
     const img = spectator.query(byTestId('image'));
-    expect(img).toHaveAttribute('src', photo1.media.m);
+    expect(img).toHaveAttribute('src', photo1.urlQ);
     expect(img).toHaveAttribute('alt', photo1.title);
   });
 
