@@ -3,8 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { FlickrAPIResponse } from '../models/flickr-photo';
 import { Photo } from '../models/photo';
+
+// Flickr API Response (relevant parts)
+export interface FlickrAPIResponse {
+  photos: {
+    photo: Photo[];
+  };
+}
 
 @Injectable()
 export class FlickrService {
@@ -25,21 +31,6 @@ export class FlickrService {
           extras: 'tags,date_taken,owner_name,url_q,url_m',
         },
       })
-      .pipe(
-        map((response) =>
-          response.photos.photo.map(
-            (flickrPhoto): Photo => ({
-              id: flickrPhoto.id,
-              link: `https://www.flickr.com/photos/${flickrPhoto.owner}/${flickrPhoto.id}/`,
-              title: flickrPhoto.title,
-              tags: flickrPhoto.tags,
-              ownerName: flickrPhoto.ownername,
-              dateTaken: flickrPhoto.datetaken,
-              urlQ: flickrPhoto.url_q,
-              urlM: flickrPhoto.url_m,
-            }),
-          ),
-        ),
-      );
+      .pipe(map((response) => response.photos.photo));
   }
 }

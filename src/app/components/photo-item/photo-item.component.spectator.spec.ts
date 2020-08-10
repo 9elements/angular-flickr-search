@@ -1,7 +1,7 @@
 import { byTestId, createComponentFactory, Spectator } from '@ngneat/spectator';
 
 import { Photo } from '../../models/photo';
-import { photo1 } from '../../spec-helpers/photo.spec-helper';
+import { photo1, photo2Link } from '../../spec-helpers/photo.spec-helper';
 import { PhotoItemComponent } from './photo-item.component';
 
 describe('PhotoItemComponent with spectator', () => {
@@ -18,10 +18,10 @@ describe('PhotoItemComponent with spectator', () => {
 
   it('renders a link and a thumbnail', () => {
     const link = spectator.query(byTestId('link'));
-    expect(link).toHaveAttribute('href', photo1.link);
+    expect(link).toHaveAttribute('href', photo2Link);
 
     const img = spectator.query(byTestId('image'));
-    expect(img).toHaveAttribute('src', photo1.urlQ);
+    expect(img).toHaveAttribute('src', photo1.url_q);
     expect(img).toHaveAttribute('alt', photo1.title);
   });
 

@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { async } from '@angular/core/testing';
 import { createHttpFactory, HttpMethod } from '@ngneat/spectator';
 
-import { flickrPhotos, photos, searchTerm } from '../spec-helpers/photo.spec-helper';
+import { photos, searchTerm } from '../spec-helpers/photo.spec-helper';
 import { FlickrService } from './flickr.service';
 
 const encodedSearchTerm = encodeURIComponent(searchTerm);
@@ -16,11 +16,11 @@ describe('FlickrService', () => {
   it('searches for public photos', async(() => {
     const { service, controller } = createHttp();
 
-    service.searchPublicPhotos(searchTerm).subscribe((foundPhotos) => {
-      expect(foundPhotos).toEqual(photos);
+    service.searchPublicPhotos(searchTerm).subscribe((actualPhotos) => {
+      expect(actualPhotos).toEqual(photos);
     });
 
-    controller.expectOne(expectedUrl).flush({ photos: { photo: flickrPhotos } });
+    controller.expectOne(expectedUrl).flush({ photos: { photo: photos } });
   }));
 
   it('passes through search errors', async(() => {

@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Photo } from '../../models/photo';
 import { click, findEl } from '../../spec-helpers/element.spec-helper';
-import { photo1 } from '../../spec-helpers/photo.spec-helper';
+import { photo1, photo1Link } from '../../spec-helpers/photo.spec-helper';
 import { PhotoItemComponent } from './photo-item.component';
 
 describe('PhotoItemComponent', () => {
@@ -26,10 +26,10 @@ describe('PhotoItemComponent', () => {
 
   it('renders a link and a thumbnail', () => {
     const link = findEl(fixture, 'link');
-    expect(link.properties.href).toBe(photo1.link);
+    expect(link.properties.href).toBe(photo1Link);
 
     const img = findEl(fixture, 'image');
-    expect(img.properties.src).toBe(photo1.urlQ);
+    expect(img.properties.src).toBe(photo1.url_q);
     expect(img.properties.alt).toBe(photo1.title);
   });
 

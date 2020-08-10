@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http/testing';
 import { async, TestBed } from '@angular/core/testing';
 
-import { flickrPhotos, photos, searchTerm } from '../spec-helpers/photo.spec-helper';
+import { photos, searchTerm } from '../spec-helpers/photo.spec-helper';
 import { FlickrService } from './flickr.service';
 
 const encodedSearchTerm = encodeURIComponent(searchTerm);
@@ -29,11 +29,11 @@ describe('FlickrService', () => {
   });
 
   it('searches for public photos', async(() => {
-    flickrService.searchPublicPhotos(searchTerm).subscribe((foundPhotos) => {
-      expect(foundPhotos).toEqual(photos);
+    flickrService.searchPublicPhotos(searchTerm).subscribe((actualPhotos) => {
+      expect(actualPhotos).toEqual(photos);
     });
 
-    controller.expectOne(expectedUrl).flush({ photos: { photo: flickrPhotos } });
+    controller.expectOne(expectedUrl).flush({ photos: { photo: photos } });
   }));
 
   it('passes through search errors', async(() => {

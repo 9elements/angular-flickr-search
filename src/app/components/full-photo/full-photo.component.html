@@ -1,15 +1,21 @@
 <ng-container *ngIf="photo">
   <h2 data-testid="title">{{ photo.title }}</h2>
 
-  <p><img src="{{ photo.urlM }}" alt="{{ photo.title }}" data-testid="image" /></p>
+  <p><img src="{{ photo.url_m }}" alt="{{ photo.title }}" data-testid="image" /></p>
 
-  <p data-testid="ownerName">{{ photo.ownerName }}</p>
+  <p data-testid="ownerName">{{ photo.ownername }}</p>
 
-  <p data-testid="dateTaken">{{ photo.dateTaken }}</p>
+  <p data-testid="dateTaken">{{ photo.datetaken }}</p>
 
   <p data-testid="tags">{{ photo.tags }}</p>
 
   <p>
-    <a href="{{ photo.link }}" data-testid="link" target="_top">{{ photo.link }}</a>
+    <a
+      href="https://www.flickr.com/photos/{{ photo.owner }}/{{ photo.id }}"
+      data-testid="link"
+      target="_top"
+    >
+      https://www.flickr.com/photos/{{ photo.owner }}/{{ photo.id }}
+    </a>
   </p>
 </ng-container>
