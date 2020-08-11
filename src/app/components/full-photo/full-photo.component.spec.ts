@@ -30,8 +30,8 @@ describe('FullPhotoComponent', () => {
     expect(img.properties.src).toBe(photo1.url_m);
     expect(img.properties.alt).toBe(photo1.title);
 
-    expectText(fixture, 'ownerName', photo1.ownername);
-    expectText(fixture, 'dateTaken', photo1.datetaken);
+    expectText(fixture, 'ownername', photo1.ownername);
+    expectText(fixture, 'datetaken', photo1.datetaken);
     expectText(fixture, 'tags', photo1.tags);
 
     const link = findEl(fixture, 'link');
