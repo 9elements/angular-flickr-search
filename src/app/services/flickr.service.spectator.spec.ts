@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { async } from '@angular/core/testing';
 import { createHttpFactory, HttpMethod } from '@ngneat/spectator';
 
+import { Photo } from '../models/photo';
 import { photos, searchTerm } from '../spec-helpers/photo.spec-helper';
 import { FlickrService } from './flickr.service';
 
@@ -13,34 +14,46 @@ describe('FlickrService', () => {
     service: FlickrService,
   });
 
-  it('searches for public photos', async(() => {
+  it('searches for public photos', () => {
     const { service, controller } = createHttp();
 
-    service.searchPublicPhotos(searchTerm).subscribe((actualPhotos) => {
-      expect(actualPhotos).toEqual(photos);
+    let actualPhotos: Photo[] | undefined;
+    service.searchPublicPhotos(searchTerm).subscribe((_actualPhotos) => {
+      actualPhotos = _actualPhotos;
     });
 
     controller.expectOne(expectedUrl).flush({ photos: { photo: photos } });
-  }));
+    expect(actualPhotos).toEqual(photos);
 
-  it('passes through search errors', async(() => {
+    // Spectator verifies the HTTP testing controller automatically
+  });
+
+  it('passes through search errors', () => {
     const { service, expectOne } = createHttp();
 
     const status = 500;
     const statusText = 'Server error';
     const errorEvent = new ErrorEvent('API error');
 
+    let actualError: HttpErrorResponse | undefined;
+
     service.searchPublicPhotos(searchTerm).subscribe(
       fail,
-      (error: HttpErrorResponse) => {
-        expect(error.error).toBe(errorEvent);
-        expect(error.status).toBe(status);
-        expect(error.statusText).toBe(statusText);
+      (error) => {
+        actualError = error;
       },
       fail,
     );
 
     expectOne(expectedUrl, HttpMethod.GET).error(errorEvent, { status, statusText });
+
+    if (!actualError) {
+      throw new Error('Error needs to be defined');
+    }
+    expect(actualError.error).toBe(errorEvent);
+    expect(actualError.status).toBe(status);
+    expect(actualError.statusText).toBe(statusText);
+
     // Spectator verifies the HTTP testing controller automatically
-  }));
+  });
 });

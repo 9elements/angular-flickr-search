@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http/testing';
 import { async, TestBed } from '@angular/core/testing';
 
+import { Photo } from '../models/photo';
 import { photos, searchTerm } from '../spec-helpers/photo.spec-helper';
 import { FlickrService } from './flickr.service';
 
@@ -28,30 +29,38 @@ describe('FlickrService', () => {
     controller.verify();
   });
 
-  it('searches for public photos', async(() => {
-    flickrService.searchPublicPhotos(searchTerm).subscribe((actualPhotos) => {
-      expect(actualPhotos).toEqual(photos);
+  it('searches for public photos', () => {
+    let actualPhotos: Photo[] | undefined;
+    flickrService.searchPublicPhotos(searchTerm).subscribe((_actualPhotos) => {
+      actualPhotos = _actualPhotos;
     });
 
     controller.expectOne(expectedUrl).flush({ photos: { photo: photos } });
-  }));
+    expect(actualPhotos).toEqual(photos);
+  });
 
-  it('passes through search errors', async(() => {
+  it('passes through search errors', () => {
     const status = 500;
     const statusText = 'Server error';
     const errorEvent = new ErrorEvent('API error');
 
+    let actualError: HttpErrorResponse | undefined;
+
     flickrService.searchPublicPhotos(searchTerm).subscribe(
       fail,
-      (error: HttpErrorResponse) => {
-        expect(error.error).toBe(errorEvent);
-        expect(error.status).toBe(status);
-        expect(error.statusText).toBe(statusText);
+      (error) => {
+        actualError = error;
       },
       fail,
     );
 
     controller.expectOne(expectedUrl).error(errorEvent, { status, statusText });
-    controller.verify();
-  }));
+
+    if (!actualError) {
+      throw new Error('Error needs to be defined');
+    }
+    expect(actualError.error).toBe(errorEvent);
+    expect(actualError.status).toBe(status);
+    expect(actualError.statusText).toBe(statusText);
+  });
 });
