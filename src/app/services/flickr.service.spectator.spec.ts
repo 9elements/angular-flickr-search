@@ -1,5 +1,4 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { async } from '@angular/core/testing';
 import { createHttpFactory, HttpMethod } from '@ngneat/spectator';
 
 import { Photo } from '../models/photo';
