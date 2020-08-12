@@ -41,17 +41,21 @@ describe('FlickrService', () => {
 
   it('passes through search errors', () => {
     const status = 500;
-    const statusText = 'Server error';
+    const statusText = 'Internal Server Error';
     const errorEvent = new ErrorEvent('API error');
 
     let actualError: HttpErrorResponse | undefined;
 
     flickrService.searchPublicPhotos(searchTerm).subscribe(
-      fail,
+      () => {
+        fail('next handler must not be called');
+      },
       (error) => {
         actualError = error;
       },
-      fail,
+      () => {
+        fail('complete handler must not be called');
+      },
     );
 
     controller.expectOne(expectedUrl).error(errorEvent, { status, statusText });

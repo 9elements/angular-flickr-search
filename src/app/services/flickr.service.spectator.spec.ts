@@ -31,17 +31,21 @@ describe('FlickrService', () => {
     const { service, expectOne } = createHttp();
 
     const status = 500;
-    const statusText = 'Server error';
+    const statusText = 'Internal Server Error';
     const errorEvent = new ErrorEvent('API error');
 
     let actualError: HttpErrorResponse | undefined;
 
     service.searchPublicPhotos(searchTerm).subscribe(
-      fail,
+      () => {
+        fail('next handler must not be called');
+      },
       (error) => {
         actualError = error;
       },
-      fail,
+      () => {
+        fail('complete handler must not be called');
+      },
     );
 
     expectOne(expectedUrl, HttpMethod.GET).error(errorEvent, { status, statusText });
