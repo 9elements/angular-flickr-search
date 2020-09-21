@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Photo } from '../../models/photo';
 import { click, findEl } from '../../spec-helpers/element.spec-helper';
@@ -10,14 +10,12 @@ describe('PhotoItemComponent', () => {
   let component: PhotoItemComponent;
   let fixture: ComponentFixture<PhotoItemComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [PhotoItemComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(PhotoItemComponent);
     component = fixture.componentInstance;
     component.photo = photo1;

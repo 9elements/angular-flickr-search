@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { expectText, findEl } from '../../spec-helpers/element.spec-helper';
 import { photo1, photo1Link } from '../../spec-helpers/photo.spec-helper';
@@ -9,14 +9,12 @@ describe('FullPhotoComponent', () => {
   let component: FullPhotoComponent;
   let fixture: ComponentFixture<FullPhotoComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [FullPhotoComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(FullPhotoComponent);
     component = fixture.componentInstance;
     component.photo = photo1;
