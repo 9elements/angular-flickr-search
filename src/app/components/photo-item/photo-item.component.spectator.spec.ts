@@ -17,7 +17,7 @@ describe('PhotoItemComponent with spectator', () => {
   });
 
   it('renders a link and a thumbnail', () => {
-    const link = spectator.query(byTestId('link'));
+    const link = spectator.query(byTestId('photo-item-link'));
     expect(link).toHaveAttribute('href', photo2Link);
 
     const img = spectator.query(byTestId('image'));
@@ -25,16 +25,27 @@ describe('PhotoItemComponent with spectator', () => {
     expect(img).toHaveAttribute('alt', photo1.title);
   });
 
-  it('focusses a photo on click', (done: DoneFn) => {
+  it('focusses a photo on click', () => {
+    let photo: Photo | undefined;
+
     spectator.component.focusPhoto.subscribe((otherPhoto: Photo) => {
-      expect(otherPhoto).toBe(photo1);
-      done();
+      photo = otherPhoto;
     });
 
-    const link = spectator.query(byTestId('link'));
+    const link = spectator.query(byTestId('photo-item-link'));
     if (!link) {
       throw new Error('link not found');
     }
     spectator.click(link);
+
+    expect(photo).toBe(photo1);
+  });
+
+  it('does nothing when the photo is null', () => {
+    spectator.component.photo = null;
+    spectator.detectChanges();
+
+    const link = spectator.query(byTestId('photo-item-link'));
+    expect(link).toBe(null);
   });
 });

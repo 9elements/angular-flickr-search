@@ -23,7 +23,7 @@ describe('PhotoListComponent with spectator', () => {
   });
 
   it('renders the title', () => {
-    expect(spectator.query(byTestId('title'))).toHaveText(title);
+    expect(spectator.query(byTestId('photo-list-title'))).toHaveText(title);
   });
 
   it('renders photo items', () => {
@@ -34,17 +34,20 @@ describe('PhotoListComponent with spectator', () => {
     });
   });
 
-  it('focusses a photo', (done: DoneFn) => {
+  it('focusses a photo', () => {
     const photoItem = spectator.query(PhotoItemComponent);
     if (!photoItem) {
       throw new Error('photoItem not found');
     }
 
+    let photo: Photo | undefined;
+
     spectator.component.focusPhoto.subscribe((otherPhoto: Photo) => {
-      expect(otherPhoto).toBe(photo1);
-      done();
+      photo = otherPhoto;
     });
 
     photoItem.focusPhoto.emit(photo1);
+
+    expect(photo).toBe(photo1);
   });
 });

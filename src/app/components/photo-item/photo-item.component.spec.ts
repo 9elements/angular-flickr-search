@@ -23,7 +23,7 @@ describe('PhotoItemComponent', () => {
   });
 
   it('renders a link and a thumbnail', () => {
-    const link = findEl(fixture, 'link');
+    const link = findEl(fixture, 'photo-item-link');
     expect(link.properties.href).toBe(photo1Link);
 
     const img = findEl(fixture, 'image');
@@ -31,26 +31,24 @@ describe('PhotoItemComponent', () => {
     expect(img.properties.alt).toBe(photo1.title);
   });
 
-  it('focusses a photo on click', (done: DoneFn) => {
+  it('focusses a photo on click', () => {
+    let photo: Photo | undefined;
+
     component.focusPhoto.subscribe((otherPhoto: Photo) => {
-      expect(otherPhoto).toBe(photo1);
-      done();
+      photo = otherPhoto;
     });
 
-    click(fixture, 'link');
+    click(fixture, 'photo-item-link');
+
+    expect(photo).toBe(photo1);
   });
 
-  it('does nothing on click when the photo is null', () => {
+  it('does nothing when the photo is null', () => {
     component.photo = null;
     fixture.detectChanges();
 
-    component.focusPhoto.subscribe(fail);
-
-    // We cannot click on the link since it does not exist.
-    // As an exception, call the handler directly.
-    // Normally, you should not do this.
-    component.handleClick(new MouseEvent('click'));
-
-    expect().nothing();
+    expect(() => {
+      findEl(fixture, 'photo-item-link');
+    }).toThrow();
   });
 });

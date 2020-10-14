@@ -16,9 +16,9 @@ describe('FullPhotoComponent with spectator', () => {
   });
 
   it('renders the photo information', () => {
-    expect(spectator.query(byTestId('title'))).toHaveText(photo1.title);
+    expect(spectator.query(byTestId('full-photo-title'))).toHaveText(photo1.title);
 
-    const img = spectator.query(byTestId('image'));
+    const img = spectator.query(byTestId('full-image'));
     expect(img).toHaveAttribute('src', photo1.url_m);
     expect(img).toHaveAttribute('alt', photo1.title);
 
@@ -26,7 +26,7 @@ describe('FullPhotoComponent with spectator', () => {
     expect(spectator.query(byTestId('datetaken'))).toHaveText(photo1.datetaken);
     expect(spectator.query(byTestId('tags'))).toHaveText(photo1.tags);
 
-    const link = spectator.query(byTestId('link'));
+    const link = spectator.query(byTestId('full-photo-link'));
     expect(link).toHaveAttribute('href', photo1Link);
     expect(link).toHaveText(photo1Link);
   });

@@ -31,7 +31,7 @@ describe('PhotoListComponent', () => {
   });
 
   it('renders the title', () => {
-    expectText(fixture, 'title', title);
+    expectText(fixture, 'photo-list-title', title);
   });
 
   it('renders photo items', () => {
@@ -42,14 +42,17 @@ describe('PhotoListComponent', () => {
     });
   });
 
-  it('focusses a photo', (done: DoneFn) => {
+  it('focusses a photo', () => {
     const photoItem = findComponent(fixture, 'app-photo-item');
 
+    let photo: Photo | undefined;
+
     component.focusPhoto.subscribe((otherPhoto: Photo) => {
-      expect(otherPhoto).toBe(photo1);
-      done();
+      photo = otherPhoto;
     });
 
     photoItem.triggerEventHandler('focusPhoto', photoItem.properties.photo);
+
+    expect(photo).toBe(photo1);
   });
 });

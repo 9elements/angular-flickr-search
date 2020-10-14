@@ -22,9 +22,9 @@ describe('FullPhotoComponent', () => {
   });
 
   it('renders the photo information', () => {
-    expectText(fixture, 'title', photo1.title);
+    expectText(fixture, 'full-photo-title', photo1.title);
 
-    const img = findEl(fixture, 'image');
+    const img = findEl(fixture, 'full-image');
     expect(img.properties.src).toBe(photo1.url_m);
     expect(img.properties.alt).toBe(photo1.title);
 
@@ -32,7 +32,7 @@ describe('FullPhotoComponent', () => {
     expectText(fixture, 'datetaken', photo1.datetaken);
     expectText(fixture, 'tags', photo1.tags);
 
-    const link = findEl(fixture, 'link');
+    const link = findEl(fixture, 'full-photo-link');
     expect(link.properties.href).toBe(photo1Link);
     expect(link.nativeElement.textContent.trim()).toBe(photo1Link);
   });

@@ -15,10 +15,11 @@ describe('SearchFormComponent with spectator', () => {
     spectator = createComponent();
   });
 
-  it('starts a search', (done: DoneFn) => {
-    spectator.component.search.subscribe((searchTerm2: string) => {
-      expect(searchTerm2).toBe(searchTerm);
-      done();
+  it('starts a search', () => {
+    let actualSearchTerm: string | undefined;
+
+    spectator.component.search.subscribe((otherSearchTerm: string) => {
+      actualSearchTerm = otherSearchTerm;
     });
 
     const searchTermInput = spectator.query(byTestId('searchTermInput'));
@@ -32,5 +33,7 @@ describe('SearchFormComponent with spectator', () => {
       throw new Error('form not found');
     }
     spectator.dispatchFakeEvent(form, 'submit');
+
+    expect(actualSearchTerm).toBe(searchTerm);
   });
 });

@@ -19,18 +19,21 @@ describe('SearchFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('starts a search', (done: DoneFn) => {
+  it('starts a search', () => {
     const preventDefault = jasmine.createSpy('submit preventDefault');
 
-    component.search.subscribe((searchTerm2: string) => {
-      expect(searchTerm2).toBe(searchTerm);
-      expect(preventDefault).toHaveBeenCalled();
-      done();
+    let actualSearchTerm: string | undefined;
+
+    component.search.subscribe((otherSearchTerm: string) => {
+      actualSearchTerm = otherSearchTerm;
     });
 
     const searchTermInput = findEl(fixture, 'searchTermInput');
     searchTermInput.nativeElement.value = searchTerm;
 
     findEl(fixture, 'form').triggerEventHandler('submit', { preventDefault });
+
+    expect(actualSearchTerm).toBe(searchTerm);
+    expect(preventDefault).toHaveBeenCalled();
   });
 });

@@ -1,7 +1,7 @@
 <ng-container *ngIf="photo">
-  <h2 data-testid="title">{{ photo.title }}</h2>
+  <h2 data-testid="full-photo-title">{{ photo.title }}</h2>
 
-  <p><img src="{{ photo.url_m }}" alt="{{ photo.title }}" data-testid="image" /></p>
+  <p><img src="{{ photo.url_m }}" alt="{{ photo.title }}" data-testid="full-image" /></p>
 
   <p data-testid="ownername">{{ photo.ownername }}</p>
 
@@ -12,7 +12,7 @@
   <p>
     <a
       href="https://www.flickr.com/photos/{{ photo.owner }}/{{ photo.id }}"
-      data-testid="link"
+      data-testid="full-photo-link"
       target="_top"
     >
       https://www.flickr.com/photos/{{ photo.owner }}/{{ photo.id }}
