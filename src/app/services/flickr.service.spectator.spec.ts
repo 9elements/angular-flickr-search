@@ -17,8 +17,8 @@ describe('FlickrService', () => {
     const { service, controller } = createHttp();
 
     let actualPhotos: Photo[] | undefined;
-    service.searchPublicPhotos(searchTerm).subscribe((_actualPhotos) => {
-      actualPhotos = _actualPhotos;
+    service.searchPublicPhotos(searchTerm).subscribe((otherPhotos) => {
+      actualPhotos = otherPhotos;
     });
 
     controller.expectOne(expectedUrl).flush({ photos: { photo: photos } });

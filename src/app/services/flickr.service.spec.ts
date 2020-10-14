@@ -31,8 +31,8 @@ describe('FlickrService', () => {
 
   it('searches for public photos', () => {
     let actualPhotos: Photo[] | undefined;
-    flickrService.searchPublicPhotos(searchTerm).subscribe((_actualPhotos) => {
-      actualPhotos = _actualPhotos;
+    flickrService.searchPublicPhotos(searchTerm).subscribe((otherPhotos) => {
+      actualPhotos = otherPhotos;
     });
 
     controller.expectOne(expectedUrl).flush({ photos: { photo: photos } });
