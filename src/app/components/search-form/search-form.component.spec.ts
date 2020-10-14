@@ -10,7 +10,7 @@ describe('SearchFormComponent', () => {
   let fixture: ComponentFixture<SearchFormComponent>;
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       declarations: [SearchFormComponent],
     }).compileComponents();
 

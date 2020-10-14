@@ -11,7 +11,7 @@ describe('PhotoItemComponent', () => {
   let fixture: ComponentFixture<PhotoItemComponent>;
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       declarations: [PhotoItemComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

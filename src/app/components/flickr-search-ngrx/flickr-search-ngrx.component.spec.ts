@@ -22,8 +22,8 @@ describe('FlickrSearchNgrxComponent', () => {
   let searchForm: DebugElement;
   let photoList: DebugElement;
 
-  function setup(state: AppState): void {
-    TestBed.configureTestingModule({
+  async function setup(state: AppState): Promise<void> {
+    await TestBed.configureTestingModule({
       declarations: [FlickrSearchNgrxComponent],
       providers: [provideMockStore({ initialState: state })],
       schemas: [NO_ERRORS_SCHEMA],
@@ -40,8 +40,8 @@ describe('FlickrSearchNgrxComponent', () => {
   }
 
   describe('initial state', () => {
-    beforeEach(() => {
-      setup({ photos: initialState });
+    beforeEach(async () => {
+      await setup({ photos: initialState });
     });
 
     it('renders the search form and the photo list, not the full photo', () => {
@@ -63,8 +63,8 @@ describe('FlickrSearchNgrxComponent', () => {
   });
 
   describe('with photos', () => {
-    beforeEach(() => {
-      setup({ photos: stateWithPhotos });
+    beforeEach(async () => {
+      await setup({ photos: stateWithPhotos });
     });
 
     it('passes the photos to the photo list', () => {
@@ -79,8 +79,8 @@ describe('FlickrSearchNgrxComponent', () => {
   });
 
   describe('with current photo', () => {
-    beforeEach(() => {
-      setup({ photos: stateWithCurrentPhoto });
+    beforeEach(async () => {
+      await setup({ photos: stateWithCurrentPhoto });
     });
 
     it('renders the full photo', () => {

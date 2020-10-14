@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { FlickrService } from 'src/app/services/flickr.service';
 
@@ -16,20 +16,20 @@ describe('FlickrSearchComponent', () => {
   let searchForm: DebugElement;
   let photoList: DebugElement;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     flickrServiceMock = {
       searchPublicPhotos: jasmine
         .createSpy('searchPublicPhotos')
         .and.returnValue(of(photos)),
     };
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       declarations: [FlickrSearchComponent],
       providers: [{ provide: FlickrService, useValue: flickrServiceMock }],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FlickrSearchComponent);
