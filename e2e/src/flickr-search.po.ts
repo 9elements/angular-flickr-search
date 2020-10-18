@@ -18,7 +18,7 @@ export class FlickrSearch {
     input.clear();
     input.sendKeys(term);
     findEls('submitSearch').first().click();
-    browser.wait(ExpectedConditions.presenceOf(findEl('photo-item-link')));
+    browser.wait(ExpectedConditions.elementToBeClickable(findEl('photo-item-link')));
   }
 
   public photoItemLinks(): ElementArrayFinder {
