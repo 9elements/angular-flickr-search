@@ -2,7 +2,10 @@ import { FlickrSearch } from './flickr-search.po';
 
 const SEARCH_TERM = 'flower';
 
-describe('workspace-project App', () => {
+/**
+ * Test for the Flickr Search using the Selenium Promise manager
+ */
+describe('Flickr Search', () => {
   let page: FlickrSearch;
 
   beforeEach(() => {

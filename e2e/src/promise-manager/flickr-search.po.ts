@@ -3,14 +3,16 @@ import {
   ElementArrayFinder,
   ElementFinder,
   ExpectedConditions,
-  promise,
 } from 'protractor';
 
-import { findEl, findEls } from './e2e.spec-helper';
+import { findEl, findEls } from '../e2e.spec-helper';
 
+/**
+ * Page object for the Flickr Search using the Selenium Promise manager
+ */
 export class FlickrSearch {
-  public navigateTo(): promise.Promise<any> {
-    return browser.get('/');
+  public navigateTo(): void {
+    browser.get('/');
   }
 
   public searchFor(term: string): void {
@@ -18,7 +20,9 @@ export class FlickrSearch {
     input.clear();
     input.sendKeys(term);
     findEls('submitSearch').first().click();
-    browser.wait(ExpectedConditions.elementToBeClickable(findEl('photo-item-link')));
+    browser.wait(
+      ExpectedConditions.elementToBeClickable(findEls('photo-item-link').first()),
+    );
   }
 
   public photoItemLinks(): ElementArrayFinder {
