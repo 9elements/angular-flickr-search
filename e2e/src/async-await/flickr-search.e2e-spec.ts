@@ -24,7 +24,7 @@ describe('Flickr search (using async/await)', () => {
       }
       expect(await link.getAttribute('href')).toContain('https://www.flickr.com/photos/');
     });
-    expect(await page.photoListImages().count()).toBe(15);
+    expect(await page.photoItemImages().count()).toBe(15);
   });
 
   it('shows the image detail', async () => {

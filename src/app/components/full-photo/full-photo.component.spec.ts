@@ -24,7 +24,7 @@ describe('FullPhotoComponent', () => {
   it('renders the photo information', () => {
     expectText(fixture, 'full-photo-title', photo1.title);
 
-    const img = findEl(fixture, 'full-image');
+    const img = findEl(fixture, 'full-photo-image');
     expect(img.properties.src).toBe(photo1.url_m);
     expect(img.properties.alt).toBe(photo1.title);
 

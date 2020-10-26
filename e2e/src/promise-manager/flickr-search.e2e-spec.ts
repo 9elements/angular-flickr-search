@@ -22,7 +22,7 @@ describe('Flickr Search', () => {
       }
       expect(link.getAttribute('href')).toContain('https://www.flickr.com/photos/');
     });
-    expect(page.photoListImages().count()).toBe(15);
+    expect(page.photoItemImages().count()).toBe(15);
   });
 
   it('shows the image detail', () => {

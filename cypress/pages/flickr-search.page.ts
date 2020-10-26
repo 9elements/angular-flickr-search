@@ -20,8 +20,8 @@ export class FlickrSearch {
     return cy.byTestId('photo-item-link');
   }
 
-  public photoListImages(): Cypress.Chainable<JQuery<HTMLElement>> {
-    return cy.byTestId('image');
+  public photoItemImages(): Cypress.Chainable<JQuery<HTMLElement>> {
+    return cy.byTestId('photo-item-image');
   }
 
   public fullPhoto(): Cypress.Chainable<JQuery<HTMLElement>> {
@@ -33,7 +33,7 @@ export class FlickrSearch {
   }
 
   public fullPhotoImage(): Cypress.Chainable<JQuery<HTMLElement>> {
-    return cy.byTestId('full-image');
+    return cy.byTestId('full-photo-image');
   }
 
   public fullPhotoTags(): Cypress.Chainable<JQuery<HTMLElement>> {

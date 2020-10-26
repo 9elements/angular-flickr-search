@@ -17,7 +17,7 @@ describe('Flickr Search', () => {
     photoItemLinks.each((link) => {
       expect(link.attr('href')).to.contain('https://www.flickr.com/photos/');
     });
-    page.photoListImages().should('have.length', 15);
+    page.photoItemImages().should('have.length', 15);
   });
 
   it('shows the image detail', () => {

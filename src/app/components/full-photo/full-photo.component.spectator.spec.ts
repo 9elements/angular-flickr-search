@@ -18,7 +18,7 @@ describe('FullPhotoComponent with spectator', () => {
   it('renders the photo information', () => {
     expect(spectator.query(byTestId('full-photo-title'))).toHaveText(photo1.title);
 
-    const img = spectator.query(byTestId('full-image'));
+    const img = spectator.query(byTestId('full-photo-image'));
     expect(img).toHaveAttribute('src', photo1.url_m);
     expect(img).toHaveAttribute('alt', photo1.title);
 

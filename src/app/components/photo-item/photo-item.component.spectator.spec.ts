@@ -20,7 +20,7 @@ describe('PhotoItemComponent with spectator', () => {
     const link = spectator.query(byTestId('photo-item-link'));
     expect(link).toHaveAttribute('href', photo2Link);
 
-    const img = spectator.query(byTestId('image'));
+    const img = spectator.query(byTestId('photo-item-image'));
     expect(img).toHaveAttribute('src', photo1.url_q);
     expect(img).toHaveAttribute('alt', photo1.title);
   });

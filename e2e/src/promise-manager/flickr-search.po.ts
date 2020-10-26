@@ -29,8 +29,8 @@ export class FlickrSearch {
     return findEls('photo-item-link');
   }
 
-  public photoListImages(): ElementArrayFinder {
-    return findEls('image');
+  public photoItemImages(): ElementArrayFinder {
+    return findEls('photo-item-image');
   }
 
   public fullPhoto(): ElementFinder {
@@ -42,7 +42,7 @@ export class FlickrSearch {
   }
 
   public fullPhotoImage(): ElementFinder {
-    return findEl('full-image');
+    return findEl('full-photo-image');
   }
 
   public fullPhotoTags(): ElementFinder {

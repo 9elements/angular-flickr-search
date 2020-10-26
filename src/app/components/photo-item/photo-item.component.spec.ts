@@ -26,7 +26,7 @@ describe('PhotoItemComponent', () => {
     const link = findEl(fixture, 'photo-item-link');
     expect(link.properties.href).toBe(photo1Link);
 
-    const img = findEl(fixture, 'image');
+    const img = findEl(fixture, 'photo-item-image');
     expect(img.properties.src).toBe(photo1.url_q);
     expect(img.properties.alt).toBe(photo1.title);
   });

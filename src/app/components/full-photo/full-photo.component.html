@@ -1,7 +1,9 @@
 <ng-container *ngIf="photo">
   <h2 data-testid="full-photo-title">{{ photo.title }}</h2>
 
-  <p><img src="{{ photo.url_m }}" alt="{{ photo.title }}" data-testid="full-image" /></p>
+  <p>
+    <img src="{{ photo.url_m }}" alt="{{ photo.title }}" data-testid="full-photo-image" />
+  </p>
 
   <p data-testid="ownername">{{ photo.ownername }}</p>
 
