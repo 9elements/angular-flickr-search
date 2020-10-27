@@ -27,13 +27,11 @@ describe('Flickr search (using async/await)', () => {
     expect(await page.photoItemImages().count()).toBe(15);
   });
 
-  it('shows the image detail', async () => {
+  it('shows the full photo', async () => {
     await page.searchFor(SEARCH_TERM);
     await page.photoItemLinks().first().click();
     expect(page.fullPhoto().getText()).toContain(SEARCH_TERM);
-    const fullPhotoTitle = page.fullPhotoTitle();
-    expect(await fullPhotoTitle.isPresent()).toBe(true);
-    expect(await fullPhotoTitle.getText()).not.toBe('');
+    expect(await page.fullPhotoTitle().getText()).not.toBe('');
     expect(await page.fullPhotoTags().getText()).not.toBe('');
   });
 });

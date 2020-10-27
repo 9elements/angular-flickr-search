@@ -22,7 +22,7 @@ export function findEls(testId: string): ElementArrayFinder {
 
 export async function takeScreenshot(title: string): Promise<void> {
   const pngData = await browser.takeScreenshot();
-  const stream = fs.createWriteStream(`${title}.png`);
+  const stream = fs.createWriteStream(`./e2e/screenshots/${title}.png`);
   stream.write(Buffer.from(pngData, 'base64'));
   stream.end();
 }

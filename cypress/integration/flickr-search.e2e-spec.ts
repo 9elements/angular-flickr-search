@@ -20,7 +20,7 @@ describe('Flickr Search', () => {
     page.photoItemImages().should('have.length', 15);
   });
 
-  it('shows the image detail', () => {
+  it('shows the full photo', () => {
     page.searchFor(SEARCH_TERM);
     page.photoItemLinks().first().click();
     page.fullPhoto().should('contain', SEARCH_TERM);

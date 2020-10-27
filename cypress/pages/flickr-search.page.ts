@@ -37,6 +37,6 @@ export class FlickrSearch {
   }
 
   public fullPhotoTags(): Cypress.Chainable<JQuery<HTMLElement>> {
-    return cy.byTestId('tags');
+    return cy.byTestId('full-photo-tags');
   }
 }

@@ -46,6 +46,6 @@ export class FlickrSearch {
   }
 
   public fullPhotoTags(): ElementFinder {
-    return findEl('tags');
+    return findEl('full-photo-tags');
   }
 }

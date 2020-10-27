@@ -5,7 +5,7 @@ const SEARCH_TERM = 'flower';
 /**
  * Test for the Flickr Search using the Selenium Promise manager
  */
-describe('Flickr Search', () => {
+describe('Flickr Search (using Promise manager)', () => {
   let page: FlickrSearch;
 
   beforeEach(() => {
@@ -25,13 +25,11 @@ describe('Flickr Search', () => {
     expect(page.photoItemImages().count()).toBe(15);
   });
 
-  it('shows the image detail', () => {
+  it('shows the full photo', () => {
     page.searchFor(SEARCH_TERM);
     page.photoItemLinks().first().click();
     expect(page.fullPhoto().getText()).toContain(SEARCH_TERM);
-    const fullPhotoTitle = page.fullPhotoTitle();
-    expect(fullPhotoTitle.isPresent()).toBe(true);
-    expect(fullPhotoTitle.getText()).not.toBe('');
+    expect(page.fullPhotoTitle().getText()).not.toBe('');
     expect(page.fullPhotoTags().getText()).not.toBe('');
   });
 });

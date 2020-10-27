@@ -9,7 +9,7 @@ const { SpecReporter, StacktraceOption } = require('jasmine-spec-reporter');
  */
 exports.config = {
   allScriptsTimeout: 11000,
-  specs: ['./src/promise-manager/**/*.e2e-spec.ts'],
+  specs: ['./src/**/*.e2e-spec.ts'],
   capabilities: {
     browserName: 'chrome',
   },
@@ -31,7 +31,7 @@ exports.config = {
     jasmine.getEnv().addReporter(
       new SpecReporter({
         spec: {
-          displayStacktrace: StacktraceOption.PRETTY,
+          displayStacktrace: StacktraceOption.RAW,
         },
       }),
     );

@@ -9,9 +9,9 @@ const DIR = './e2e/screenshots/';
 // MIT-licensed by Craig Nishina
 export async function postTest(passed: boolean, testInfo: any): Promise<void> {
   if (!passed) {
-    const category = testInfo.category.replace(/ /g, '_');
-    const name = testInfo.name.replace(/ /g, '_');
-    const path = `${DIR}${category}_${name}_failure.png`;
+    const category = testInfo.category.replace(/[\s\/]/g, '_');
+    const name = testInfo.name.replace(/[\s\/]/g, '_');
+    const path = `${DIR}failure_${category}_${name}.png`;
     const data = await browser.takeScreenshot();
     if (!fs.existsSync(DIR)) {
       fs.mkdirSync(DIR);
