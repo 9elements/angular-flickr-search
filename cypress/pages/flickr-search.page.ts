@@ -32,11 +32,11 @@ export class FlickrSearch {
     return cy.byTestId('full-photo-title');
   }
 
-  public fullPhotoImage(): Cypress.Chainable<JQuery<HTMLElement>> {
-    return cy.byTestId('full-photo-image');
-  }
-
   public fullPhotoTags(): Cypress.Chainable<JQuery<HTMLElement>> {
     return cy.byTestId('full-photo-tags');
+  }
+
+  public fullPhotoImage(): Cypress.Chainable<JQuery<HTMLElement>> {
+    return cy.byTestId('full-photo-image');
   }
 }

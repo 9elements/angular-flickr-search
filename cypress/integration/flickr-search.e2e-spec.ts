@@ -28,5 +28,6 @@ describe('Flickr search', () => {
     fullPhotoTitle.should('exist');
     fullPhotoTitle.should('not.have.text', '');
     page.fullPhotoTags().should('not.have.text', '');
+    page.fullPhotoImage().should('exist');
   });
 });
