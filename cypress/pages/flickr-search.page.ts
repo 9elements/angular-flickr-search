@@ -2,7 +2,7 @@
 /// <reference path="../support/index.d.ts" />
 
 /**
- * Page object for the Flickr Search using the Selenium Promise manager
+ * Page object for the Flickr search using the Selenium Promise manager
  */
 export class FlickrSearch {
   public visit(): void {

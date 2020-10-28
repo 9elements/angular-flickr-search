@@ -3,9 +3,9 @@ import { FlickrSearch } from './flickr-search.po';
 const SEARCH_TERM = 'flower';
 
 /**
- * Test for the Flickr Search using the Selenium Promise manager
+ * Test for the Flickr search using the Selenium Promise manager
  */
-describe('Flickr Search (using Promise manager)', () => {
+describe('Flickr search (using Promise manager)', () => {
   let page: FlickrSearch;
 
   beforeEach(() => {
@@ -15,8 +15,9 @@ describe('Flickr Search (using Promise manager)', () => {
 
   it('searches for a term', () => {
     page.searchFor(SEARCH_TERM);
-    expect(page.photoItemLinks().count()).toBe(15);
-    page.photoItemLinks().each((link) => {
+    const links = page.photoItemLinks();
+    expect(links.count()).toBe(15);
+    links.each((link) => {
       if (!link) {
         throw new Error('link is not defined');
       }
@@ -28,8 +29,9 @@ describe('Flickr Search (using Promise manager)', () => {
   it('shows the full photo', () => {
     page.searchFor(SEARCH_TERM);
     page.photoItemLinks().first().click();
-    expect(page.fullPhoto().getText()).toContain(SEARCH_TERM);
-    expect(page.fullPhotoTitle().getText()).not.toBe('');
-    expect(page.fullPhotoTags().getText()).not.toBe('');
+    expect(page.fullPhotoText()).toContain(SEARCH_TERM);
+    expect(page.fullPhotoTitle()).not.toBe('');
+    expect(page.fullPhotoTags()).not.toBe('');
+    expect(page.fullPhotoImage().isPresent()).toBe(true);
   });
 });

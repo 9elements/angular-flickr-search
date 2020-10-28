@@ -2,7 +2,7 @@ import { FlickrSearch } from '../pages/flickr-search.page';
 
 const SEARCH_TERM = 'flower';
 
-describe('Flickr Search', () => {
+describe('Flickr search', () => {
   let page: FlickrSearch;
 
   beforeEach(() => {

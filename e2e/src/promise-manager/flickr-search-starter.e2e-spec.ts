@@ -2,9 +2,9 @@ import { browser, ExpectedConditions } from 'protractor';
 import { findEl, findEls } from '../e2e.spec-helper';
 
 /**
- * Test for the Flickr Search using the Selenium Promise manager
+ * Test for the Flickr search using the Selenium Promise manager
  */
-fdescribe('Flickr Search (starter)', () => {
+describe('Flickr search (starter)', () => {
   beforeEach(() => {
     browser.get('/');
   });
@@ -15,9 +15,10 @@ fdescribe('Flickr Search (starter)', () => {
     input.sendKeys('flower');
     findEl('submitSearch').click();
 
-    const photoItemLinks = findEls('photo-item-link');
-    expect(photoItemLinks.count()).toBe(15);
-    photoItemLinks.each((link) => {
+    const links = findEls('photo-item-link');
+    browser.wait(ExpectedConditions.elementToBeClickable(links.first()));
+    expect(links.count()).toBe(15);
+    links.each((link) => {
       if (!link) {
         throw new Error('link is not defined');
       }
@@ -40,5 +41,6 @@ fdescribe('Flickr Search (starter)', () => {
     expect(findEl('full-photo').getText()).toContain('flower');
     expect(findEl('full-photo-title').getText()).not.toBe('');
     expect(findEl('full-photo-tags').getText()).not.toBe('');
+    expect(findEl('full-photo-image').isPresent()).toBe(true);
   });
 });

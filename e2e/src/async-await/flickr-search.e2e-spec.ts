@@ -4,7 +4,7 @@ import { FlickrSearch } from './flickr-search.po';
 const SEARCH_TERM = 'flower';
 
 /**
- * Page object for the Flickr Search using async/await
+ * Page object for the Flickr search using async/await
  */
 describe('Flickr search (using async/await)', () => {
   let page: FlickrSearch;
@@ -30,8 +30,9 @@ describe('Flickr search (using async/await)', () => {
   it('shows the full photo', async () => {
     await page.searchFor(SEARCH_TERM);
     await page.photoItemLinks().first().click();
-    expect(page.fullPhoto().getText()).toContain(SEARCH_TERM);
-    expect(await page.fullPhotoTitle().getText()).not.toBe('');
-    expect(await page.fullPhotoTags().getText()).not.toBe('');
+    expect(await page.fullPhotoText()).toContain(SEARCH_TERM);
+    expect(await page.fullPhotoTitle()).not.toBe('');
+    expect(await page.fullPhotoTags()).not.toBe('');
+    expect(await page.fullPhotoImage().isPresent()).toBe(true);
   });
 });

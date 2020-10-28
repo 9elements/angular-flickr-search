@@ -3,12 +3,13 @@ import {
   ElementArrayFinder,
   ElementFinder,
   ExpectedConditions,
+  promise,
 } from 'protractor';
 
 import { findEl, findEls } from '../e2e.spec-helper';
 
 /**
- * Page object for the Flickr Search using the Selenium Promise manager
+ * Page object for the Flickr search using the Selenium Promise manager
  */
 export class FlickrSearch {
   public navigateTo(): void {
@@ -20,9 +21,7 @@ export class FlickrSearch {
     input.clear();
     input.sendKeys(term);
     findEls('submitSearch').first().click();
-    browser.wait(
-      ExpectedConditions.elementToBeClickable(findEls('photo-item-link').first()),
-    );
+    browser.wait(ExpectedConditions.elementToBeClickable(this.photoItemLinks().first()));
   }
 
   public photoItemLinks(): ElementArrayFinder {
@@ -33,19 +32,19 @@ export class FlickrSearch {
     return findEls('photo-item-image');
   }
 
-  public fullPhoto(): ElementFinder {
-    return findEl('full-photo');
+  public fullPhotoText(): promise.Promise<string> {
+    return findEl('full-photo').getText();
   }
 
-  public fullPhotoTitle(): ElementFinder {
-    return findEl('full-photo-title');
+  public fullPhotoTitle(): promise.Promise<string> {
+    return findEl('full-photo-title').getText();
+  }
+
+  public fullPhotoTags(): promise.Promise<string> {
+    return findEl('full-photo-tags').getText();
   }
 
   public fullPhotoImage(): ElementFinder {
     return findEl('full-photo-image');
-  }
-
-  public fullPhotoTags(): ElementFinder {
-    return findEl('full-photo-tags');
   }
 }
