@@ -4,10 +4,10 @@ import { findEl, findEls } from '../e2e.spec-helper';
 /**
  * Test for the Flickr search without page object using async/await
  */
-fdescribe('Flickr search (starter using async/await)', () => {
-  beforeEach(() => {
+describe('Flickr search (starter using async/await)', () => {
+  beforeEach(async () => {
     browser.waitForAngularEnabled(false);
-    browser.get('/');
+    await browser.get('/');
   });
 
   it('searches for a term', async () => {
