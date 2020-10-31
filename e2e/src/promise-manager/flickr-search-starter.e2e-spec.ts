@@ -2,7 +2,7 @@ import { browser, ExpectedConditions } from 'protractor';
 import { findEl, findEls } from '../e2e.spec-helper';
 
 /**
- * Test for the Flickr search using the Selenium Promise manager
+ * Test for the Flickr search without page object using the Selenium Promise manager
  */
 describe('Flickr search (starter)', () => {
   beforeEach(() => {

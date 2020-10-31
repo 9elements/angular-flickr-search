@@ -13,7 +13,7 @@ import { findEl, findEls } from '../e2e.spec-helper';
  */
 export class FlickrSearch {
   public async navigateTo(): Promise<any> {
-    return await browser.get('/');
+    await browser.get('/');
   }
 
   public async searchFor(term: string): Promise<void> {

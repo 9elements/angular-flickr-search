@@ -4,7 +4,7 @@ import { FlickrSearch } from './flickr-search.po';
 const SEARCH_TERM = 'flower';
 
 /**
- * Page object for the Flickr search using async/await
+ * Test for the Flickr search uusing async/await
  */
 describe('Flickr search (using async/await)', () => {
   let page: FlickrSearch;
@@ -17,8 +17,9 @@ describe('Flickr search (using async/await)', () => {
 
   it('searches for a term', async () => {
     await page.searchFor(SEARCH_TERM);
-    expect(await page.photoItemLinks().count()).toBe(15);
-    await page.photoItemLinks().each(async (link) => {
+    const links = page.photoItemLinks();
+    expect(await links.count()).toBe(15);
+    await links.each(async (link) => {
       if (!link) {
         throw new Error('link is not defined');
       }
