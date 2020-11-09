@@ -6,9 +6,7 @@ describe('Flickr search', () => {
   });
 
   it('searches for a term', () => {
-    const input = cy.byTestId('searchTermInput').first();
-    input.clear();
-    input.type(SEARCH_TERM);
+    cy.byTestId('searchTermInput').first().clear().type(SEARCH_TERM);
     cy.byTestId('submitSearch').first().click();
 
     cy.byTestId('photo-item-link')
@@ -20,9 +18,7 @@ describe('Flickr search', () => {
   });
 
   it('shows the full photo', () => {
-    const input = cy.byTestId('searchTermInput').first();
-    input.clear();
-    input.type(SEARCH_TERM);
+    cy.byTestId('searchTermInput').first().clear().type(SEARCH_TERM);
     cy.byTestId('submitSearch').first().click();
 
     cy.byTestId('photo-item-link').first().click();

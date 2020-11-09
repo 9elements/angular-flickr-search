@@ -10,9 +10,7 @@ export class FlickrSearch {
   }
 
   public searchFor(term: string): void {
-    const input = cy.byTestId('searchTermInput').first();
-    input.clear();
-    input.type(term);
+    cy.byTestId('searchTermInput').first().clear().type(term);
     cy.byTestId('submitSearch').first().click();
   }
 

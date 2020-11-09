@@ -57,9 +57,7 @@ describe('Flickr search (with network stubbing)', () => {
   });
 
   it('searches for a term', () => {
-    const input = cy.byTestId('searchTermInput').first();
-    input.clear();
-    input.type(SEARCH_TERM);
+    cy.byTestId('searchTermInput').first().clear().type(SEARCH_TERM);
     cy.byTestId('submitSearch').first().click();
 
     cy.wait('@flickrSearchRequest');
@@ -79,9 +77,7 @@ describe('Flickr search (with network stubbing)', () => {
   });
 
   it('shows the full photo', () => {
-    const input = cy.byTestId('searchTermInput').first();
-    input.clear();
-    input.type(SEARCH_TERM);
+    cy.byTestId('searchTermInput').first().clear().type(SEARCH_TERM);
     cy.byTestId('submitSearch').first().click();
 
     const photo = photos[0];
