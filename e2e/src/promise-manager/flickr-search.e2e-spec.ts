@@ -1,21 +1,22 @@
-import { FlickrSearch } from './flickr-search.po';
-
-const SEARCH_TERM = 'flower';
+import { browser, ExpectedConditions } from 'protractor';
+import { findEl, findEls } from '../e2e.spec-helper';
 
 /**
- * Test for the Flickr search using the Selenium Promise manager
+ * Test for the Flickr search without page object using the Selenium Promise manager
  */
-describe('Flickr search (using Promise manager)', () => {
-  let page: FlickrSearch;
-
+describe('Flickr search (starter)', () => {
   beforeEach(() => {
-    page = new FlickrSearch();
-    page.navigateTo();
+    browser.get('/');
   });
 
   it('searches for a term', () => {
-    page.searchFor(SEARCH_TERM);
-    const links = page.photoItemLinks();
+    const input = findEl('searchTermInput');
+    input.clear();
+    input.sendKeys('flower');
+    findEl('submitSearch').click();
+
+    const links = findEls('photo-item-link');
+    browser.wait(ExpectedConditions.elementToBeClickable(links.first()));
     expect(links.count()).toBe(15);
     links.each((link) => {
       if (!link) {
@@ -23,15 +24,23 @@ describe('Flickr search (using Promise manager)', () => {
       }
       expect(link.getAttribute('href')).toContain('https://www.flickr.com/photos/');
     });
-    expect(page.photoItemImages().count()).toBe(15);
+
+    expect(findEls('photo-item-image').count()).toBe(15);
   });
 
-  it('shows the full photo', () => {
-    page.searchFor(SEARCH_TERM);
-    page.photoItemLinks().first().click();
-    expect(page.fullPhotoText()).toContain(SEARCH_TERM);
-    expect(page.fullPhotoTitle()).not.toBe('');
-    expect(page.fullPhotoTags()).not.toBe('');
-    expect(page.fullPhotoImage().isPresent()).toBe(true);
+  it('shows the full photo', async () => {
+    const input = findEl('searchTermInput');
+    input.clear();
+    input.sendKeys('flower');
+    findEl('submitSearch').click();
+
+    const link = findEls('photo-item-link').first();
+    browser.wait(ExpectedConditions.elementToBeClickable(link));
+    link.click();
+
+    expect(findEl('full-photo').getText()).toContain('flower');
+    expect(findEl('full-photo-title').getText()).not.toBe('');
+    expect(findEl('full-photo-tags').getText()).not.toBe('');
+    expect(findEl('full-photo-image').isPresent()).toBe(true);
   });
 });

@@ -1,23 +1,23 @@
-import { browser } from 'protractor';
-import { FlickrSearch } from './flickr-search.po';
-
-const SEARCH_TERM = 'flower';
+import { browser, ExpectedConditions } from 'protractor';
+import { findEl, findEls } from '../e2e.spec-helper';
 
 /**
- * Test for the Flickr search uusing async/await
+ * Test for the Flickr search without page object using async/await
  */
-describe('Flickr search (using async/await)', () => {
-  let page: FlickrSearch;
-
+describe('Flickr search (starter using async/await)', () => {
   beforeEach(async () => {
     browser.waitForAngularEnabled(false);
-    page = new FlickrSearch();
-    await page.navigateTo();
+    await browser.get('/');
   });
 
   it('searches for a term', async () => {
-    await page.searchFor(SEARCH_TERM);
-    const links = page.photoItemLinks();
+    const input = findEl('searchTermInput');
+    await input.clear();
+    await input.sendKeys('flower');
+    await findEl('submitSearch').click();
+
+    const links = findEls('photo-item-link');
+    await browser.wait(ExpectedConditions.elementToBeClickable(links.first()));
     expect(await links.count()).toBe(15);
     await links.each(async (link) => {
       if (!link) {
@@ -25,15 +25,23 @@ describe('Flickr search (using async/await)', () => {
       }
       expect(await link.getAttribute('href')).toContain('https://www.flickr.com/photos/');
     });
-    expect(await page.photoItemImages().count()).toBe(15);
+
+    expect(await findEls('photo-item-image').count()).toBe(15);
   });
 
   it('shows the full photo', async () => {
-    await page.searchFor(SEARCH_TERM);
-    await page.photoItemLinks().first().click();
-    expect(await page.fullPhotoText()).toContain(SEARCH_TERM);
-    expect(await page.fullPhotoTitle()).not.toBe('');
-    expect(await page.fullPhotoTags()).not.toBe('');
-    expect(await page.fullPhotoImage().isPresent()).toBe(true);
+    const input = findEl('searchTermInput');
+    await input.clear();
+    await input.sendKeys('flower');
+    await findEl('submitSearch').click();
+
+    const link = findEls('photo-item-link').first();
+    await browser.wait(ExpectedConditions.elementToBeClickable(link));
+    await link.click();
+
+    expect(await findEl('full-photo').getText()).toContain('flower');
+    expect(await findEl('full-photo-title').getText()).not.toBe('');
+    expect(await findEl('full-photo-tags').getText()).not.toBe('');
+    expect(await findEl('full-photo-image').isPresent()).toBe(true);
   });
 });
