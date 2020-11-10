@@ -3,7 +3,6 @@ describe('Flickr search (with network stubbing)', () => {
 
   const encodedSearchTerm = encodeURIComponent(SEARCH_TERM);
   const expectedUrl = `https://www.flickr.com/services/rest/?tags=${encodedSearchTerm}&method=flickr.photos.search&format=json&nojsoncallback=1&tag_mode=all&media=photos&per_page=15&extras=tags,date_taken,owner_name,url_q,url_m&api_key=c3050d39a5bb308d9921bef0e15c437d`;
-  console.log('expectedUrl', expectedUrl);
 
   const photos = [
     {
