@@ -1,9 +1,5 @@
-describe('Flickr search (with network stubbing)', () => {
+describe('Flickr search (with route2 network stubbing)', () => {
   const SEARCH_TERM = 'Calopteryx';
-
-  const encodedSearchTerm = encodeURIComponent(SEARCH_TERM);
-  const expectedUrl = `https://www.flickr.com/services/rest/?tags=${encodedSearchTerm}&method=flickr.photos.search&format=json&nojsoncallback=1&tag_mode=all&media=photos&per_page=15&extras=tags,date_taken,owner_name,url_q,url_m&api_key=c3050d39a5bb308d9921bef0e15c437d`;
-  console.log('expectedUrl', expectedUrl);
 
   const photos = [
     {
@@ -36,14 +32,29 @@ describe('Flickr search (with network stubbing)', () => {
   beforeEach(() => {
     cy.visit('/');
 
-    cy.server();
-    cy.route({
-      url: `${expectedUrl}*`,
-      response: flickrResponse,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
+    cy.route2(
+      {
+        method: 'GET',
+        url: 'https://www.flickr.com/services/rest/',
+        query: {
+          tags: SEARCH_TERM,
+          method: 'flickr.photos.search',
+          format: 'json',
+          nojsoncallback: '1',
+          tag_mode: 'all',
+          media: 'photos',
+          per_page: '15',
+          extras: 'tags,date_taken,owner_name,url_q,url_m',
+          // Omit api_key, it is likely to change
+        },
       },
-    }).as('flickrSearchRequest');
+      {
+        body: flickrResponse,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
+      },
+    ).as('flickrSearchRequest');
   });
 
   it('searches for a term', () => {
