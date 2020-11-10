@@ -29,7 +29,7 @@ export const photo2Link = `https://www.flickr.com/photos/${photo1.owner}/${photo
 
 export const photos: Photo[] = [photo1, photo2];
 
-export const searchTerm = 'dragonfly';
+export const searchTerm = 'calopteryx';
 
 export const initialState: PhotosStateSlice = {
   searchTerm: '',

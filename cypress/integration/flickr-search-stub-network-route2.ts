@@ -1,28 +1,11 @@
-describe('Flickr search (with route2 network stubbing)', () => {
-  const SEARCH_TERM = 'Calopteryx';
+import {
+  photo1,
+  photo1Link,
+  photos,
+  searchTerm,
+} from '../../src/app/spec-helpers/photo.spec-helper';
 
-  const photos = [
-    {
-      id: '50179462511',
-      title: 'Blauflügel-Prachtlibelle (Calopteryx virgo) (1)',
-      url_q: 'https://live.staticflickr.com/65535/50179462511_0752249fba_q.jpg',
-      url_m: 'https://live.staticflickr.com/65535/50179462511_0752249fba_m.jpg',
-      datetaken: '2020-06-21T15:16:07-08:00',
-      owner: '12639178@N07',
-      ownername: 'naturgucker.de',
-      tags: 'ngidn2020772215 calopteryxvirgo blauflügelprachtlibelle',
-    },
-    {
-      id: '50178927498',
-      title: 'Blauflügel-Prachtlibelle (Calopteryx virgo) (2)',
-      url_q: 'https://live.staticflickr.com/65535/50178927498_44162cb1a0_q.jpg',
-      url_m: 'https://live.staticflickr.com/65535/50178927498_44162cb1a0_m.jpg',
-      datetaken: '2020-06-21T15:16:17-08:00',
-      owner: '12639178@N07',
-      ownername: 'naturgucker.de',
-      tags: 'ngid657236235 calopteryxvirgo blauflügelprachtlibelle',
-    },
-  ];
+describe('Flickr search (with route2 network stubbing)', () => {
   const flickrResponse = {
     photos: {
       photo: photos,
@@ -37,7 +20,7 @@ describe('Flickr search (with route2 network stubbing)', () => {
         method: 'GET',
         url: 'https://www.flickr.com/services/rest/',
         query: {
-          tags: SEARCH_TERM,
+          tags: searchTerm,
           method: 'flickr.photos.search',
           format: 'json',
           nojsoncallback: '1',
@@ -58,7 +41,7 @@ describe('Flickr search (with route2 network stubbing)', () => {
   });
 
   it('searches for a term', () => {
-    cy.byTestId('searchTermInput').first().clear().type(SEARCH_TERM);
+    cy.byTestId('searchTermInput').first().clear().type(searchTerm);
     cy.byTestId('submitSearch').first().click();
 
     cy.wait('@flickrSearchRequest');
@@ -78,19 +61,16 @@ describe('Flickr search (with route2 network stubbing)', () => {
   });
 
   it('shows the full photo', () => {
-    cy.byTestId('searchTermInput').first().clear().type(SEARCH_TERM);
+    cy.byTestId('searchTermInput').first().clear().type(searchTerm);
     cy.byTestId('submitSearch').first().click();
 
-    const photo = photos[0];
+    cy.wait('@flickrSearchRequest');
+
     cy.byTestId('photo-item-link').first().click();
-    cy.byTestId('full-photo').should('contain', SEARCH_TERM);
-    cy.byTestId('full-photo-title').should('have.text', photo.title);
-    cy.byTestId('full-photo-tags').should('have.text', photo.tags);
-    cy.byTestId('full-photo-image').should('have.attr', 'src', photo.url_m);
-    cy.byTestId('full-photo-link').should(
-      'have.attr',
-      'href',
-      `https://www.flickr.com/photos/${photo.owner}/${photo.id}`,
-    );
+    cy.byTestId('full-photo').should('contain', searchTerm);
+    cy.byTestId('full-photo-title').should('have.text', photo1.title);
+    cy.byTestId('full-photo-tags').should('have.text', photo1.tags);
+    cy.byTestId('full-photo-image').should('have.attr', 'src', photo1.url_m);
+    cy.byTestId('full-photo-link').should('have.attr', 'href', photo1Link);
   });
 });

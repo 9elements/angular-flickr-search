@@ -1,7 +1,7 @@
 import { browser } from 'protractor';
 import { FlickrSearch } from './flickr-search.po';
 
-const SEARCH_TERM = 'flower';
+const searchTerm = 'flower';
 
 /**
  * Test for the Flickr search uusing async/await
@@ -16,7 +16,7 @@ describe('Flickr search (using async/await)', () => {
   });
 
   it('searches for a term', async () => {
-    await page.searchFor(SEARCH_TERM);
+    await page.searchFor(searchTerm);
     const links = page.photoItemLinks();
     expect(await links.count()).toBe(15);
     await links.each(async (link) => {
@@ -29,9 +29,9 @@ describe('Flickr search (using async/await)', () => {
   });
 
   it('shows the full photo', async () => {
-    await page.searchFor(SEARCH_TERM);
+    await page.searchFor(searchTerm);
     await page.photoItemLinks().first().click();
-    expect(await page.fullPhotoText()).toContain(SEARCH_TERM);
+    expect(await page.fullPhotoText()).toContain(searchTerm);
     expect(await page.fullPhotoTitle()).not.toBe('');
     expect(await page.fullPhotoTags()).not.toBe('');
     expect(await page.fullPhotoImage().isPresent()).toBe(true);

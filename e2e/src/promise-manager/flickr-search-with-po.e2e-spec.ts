@@ -1,6 +1,6 @@
 import { FlickrSearch } from './flickr-search.po';
 
-const SEARCH_TERM = 'flower';
+const searchTerm = 'flower';
 
 /**
  * Test for the Flickr search using the Selenium Promise manager
@@ -14,7 +14,7 @@ describe('Flickr search (using Promise manager)', () => {
   });
 
   it('searches for a term', () => {
-    page.searchFor(SEARCH_TERM);
+    page.searchFor(searchTerm);
     const links = page.photoItemLinks();
     expect(links.count()).toBe(15);
     links.each((link) => {
@@ -27,9 +27,9 @@ describe('Flickr search (using Promise manager)', () => {
   });
 
   it('shows the full photo', () => {
-    page.searchFor(SEARCH_TERM);
+    page.searchFor(searchTerm);
     page.photoItemLinks().first().click();
-    expect(page.fullPhotoText()).toContain(SEARCH_TERM);
+    expect(page.fullPhotoText()).toContain(searchTerm);
     expect(page.fullPhotoTitle()).not.toBe('');
     expect(page.fullPhotoTags()).not.toBe('');
     expect(page.fullPhotoImage().isPresent()).toBe(true);

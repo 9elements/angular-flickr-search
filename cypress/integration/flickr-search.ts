@@ -1,12 +1,12 @@
 describe('Flickr search', () => {
-  const SEARCH_TERM = 'flower';
+  const searchTerm = 'flower';
 
   beforeEach(() => {
     cy.visit('/');
   });
 
   it('searches for a term', () => {
-    cy.byTestId('searchTermInput').first().clear().type(SEARCH_TERM);
+    cy.byTestId('searchTermInput').first().clear().type(searchTerm);
     cy.byTestId('submitSearch').first().click();
 
     cy.byTestId('photo-item-link')
@@ -18,11 +18,11 @@ describe('Flickr search', () => {
   });
 
   it('shows the full photo', () => {
-    cy.byTestId('searchTermInput').first().clear().type(SEARCH_TERM);
+    cy.byTestId('searchTermInput').first().clear().type(searchTerm);
     cy.byTestId('submitSearch').first().click();
 
     cy.byTestId('photo-item-link').first().click();
-    cy.byTestId('full-photo').should('contain', SEARCH_TERM);
+    cy.byTestId('full-photo').should('contain', searchTerm);
     cy.byTestId('full-photo-title').should('not.have.text', '');
     cy.byTestId('full-photo-tags').should('not.have.text', '');
     cy.byTestId('full-photo-image').should('exist');

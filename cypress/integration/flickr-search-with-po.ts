@@ -1,7 +1,7 @@
 import { FlickrSearch } from '../pages/flickr-search.page';
 
 describe('Flickr search (with page object)', () => {
-  const SEARCH_TERM = 'flower';
+  const searchTerm = 'flower';
 
   let page: FlickrSearch;
 
@@ -11,7 +11,7 @@ describe('Flickr search (with page object)', () => {
   });
 
   it('searches for a term', () => {
-    page.searchFor(SEARCH_TERM);
+    page.searchFor(searchTerm);
     page
       .photoItemLinks()
       .should('have.length', 15)
@@ -22,9 +22,9 @@ describe('Flickr search (with page object)', () => {
   });
 
   it('shows the full photo', () => {
-    page.searchFor(SEARCH_TERM);
+    page.searchFor(searchTerm);
     page.photoItemLinks().first().click();
-    page.fullPhoto().should('contain', SEARCH_TERM);
+    page.fullPhoto().should('contain', searchTerm);
     page.fullPhotoTitle().should('not.have.text', '');
     page.fullPhotoTags().should('not.have.text', '');
     page.fullPhotoImage().should('exist');
