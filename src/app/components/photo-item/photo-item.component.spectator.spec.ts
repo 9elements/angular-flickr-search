@@ -32,11 +32,7 @@ describe('PhotoItemComponent with spectator', () => {
       photo = otherPhoto;
     });
 
-    const link = spectator.query(byTestId('photo-item-link'));
-    if (!link) {
-      throw new Error('link not found');
-    }
-    spectator.click(link);
+    spectator.click(byTestId('photo-item-link'));
 
     expect(photo).toBe(photo1);
   });
@@ -45,7 +41,6 @@ describe('PhotoItemComponent with spectator', () => {
     spectator.component.photo = null;
     spectator.detectChanges();
 
-    const link = spectator.query(byTestId('photo-item-link'));
-    expect(link).toBe(null);
+    expect(spectator.query(byTestId('photo-item-link'))).not.toExist();
   });
 });

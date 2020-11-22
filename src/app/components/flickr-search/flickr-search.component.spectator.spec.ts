@@ -1,4 +1,3 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { createComponentFactory, mockProvider, Spectator } from '@ngneat/spectator';
 import { MockComponents } from 'ng-mocks';
 import { of } from 'rxjs';
@@ -20,7 +19,6 @@ describe('FlickrSearchComponent with spectator', () => {
   const createComponent = createComponentFactory({
     component: FlickrSearchComponent,
     shallow: true,
-    imports: [HttpClientTestingModule],
     declarations: [
       MockComponents(SearchFormComponent, PhotoListComponent, FullPhotoComponent),
     ],
@@ -59,7 +57,7 @@ describe('FlickrSearchComponent with spectator', () => {
   });
 
   it('renders the full photo when a photo is focussed', () => {
-    expect(fullPhoto).toBeNull();
+    expect(fullPhoto).not.toExist();
 
     if (!photoList) {
       throw new Error('photoList not found');
