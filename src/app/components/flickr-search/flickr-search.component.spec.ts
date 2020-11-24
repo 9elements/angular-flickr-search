@@ -11,13 +11,13 @@ import { FlickrSearchComponent } from './flickr-search.component';
 describe('FlickrSearchComponent', () => {
   let fixture: ComponentFixture<FlickrSearchComponent>;
   let component: FlickrSearchComponent;
-  let flickrServiceMock: Pick<FlickrService, keyof FlickrService>;
+  let fakeFlickrService: Pick<FlickrService, keyof FlickrService>;
 
   let searchForm: DebugElement;
   let photoList: DebugElement;
 
   beforeEach(async () => {
-    flickrServiceMock = {
+    fakeFlickrService = {
       searchPublicPhotos: jasmine
         .createSpy('searchPublicPhotos')
         .and.returnValue(of(photos)),
@@ -26,7 +26,7 @@ describe('FlickrSearchComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       declarations: [FlickrSearchComponent],
-      providers: [{ provide: FlickrService, useValue: flickrServiceMock }],
+      providers: [{ provide: FlickrService, useValue: fakeFlickrService }],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
@@ -56,7 +56,7 @@ describe('FlickrSearchComponent', () => {
     searchForm.triggerEventHandler('search', searchTerm);
     fixture.detectChanges();
 
-    expect(flickrServiceMock.searchPublicPhotos).toHaveBeenCalledWith(searchTerm);
+    expect(fakeFlickrService.searchPublicPhotos).toHaveBeenCalledWith(searchTerm);
     expect(photoList.properties.title).toBe(searchTerm);
     expect(photoList.properties.photos).toBe(photos);
   });

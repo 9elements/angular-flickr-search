@@ -14,7 +14,7 @@ const searchAction = search({ searchTerm });
 
 type PartialFlickrService = Pick<FlickrService, 'searchPublicPhotos'>;
 
-const mockFlickrService: PartialFlickrService = {
+const fakeFlickrService: PartialFlickrService = {
   searchPublicPhotos(): Observable<Photo[]> {
     return of(photos);
   },
@@ -22,7 +22,7 @@ const mockFlickrService: PartialFlickrService = {
 
 const apiError = new Error('API Error');
 
-const mockErrorFlickrService: PartialFlickrService = {
+const fakeErrorFlickrService: PartialFlickrService = {
   searchPublicPhotos(): Observable<Photo[]> {
     return throwError(apiError);
   },
@@ -50,22 +50,22 @@ function setup(actions: Action[], flickrService: PartialFlickrService): PhotosEf
 
 describe('PhotosEffects', () => {
   it('gets the photos from flickr on search', () => {
-    const photosEffects = setup([searchAction], mockFlickrService);
+    const photosEffects = setup([searchAction], fakeFlickrService);
 
     expectActions(photosEffects.search$, [searchResultsLoaded({ photos })]);
 
-    expect(mockFlickrService.searchPublicPhotos).toHaveBeenCalledWith(searchTerm);
+    expect(fakeFlickrService.searchPublicPhotos).toHaveBeenCalledWith(searchTerm);
   });
 
   it('handles errors from the service', () => {
     const photosEffects = setup(
       [searchAction, searchAction, searchAction],
-      mockErrorFlickrService,
+      fakeErrorFlickrService,
     );
 
     expectActions(photosEffects.search$, []);
 
-    expect(mockErrorFlickrService.searchPublicPhotos).toHaveBeenCalledWith(searchTerm);
-    expect(mockErrorFlickrService.searchPublicPhotos).toHaveBeenCalledTimes(3);
+    expect(fakeErrorFlickrService.searchPublicPhotos).toHaveBeenCalledWith(searchTerm);
+    expect(fakeErrorFlickrService.searchPublicPhotos).toHaveBeenCalledTimes(3);
   });
 });

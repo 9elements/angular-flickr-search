@@ -36,14 +36,17 @@ describe('FlickrSearchComponent with spectator', () => {
   });
 
   it('renders the search form and the photo list, not the full photo', () => {
-    expect(searchForm).toBeTruthy();
-    expect(photoList).toBeTruthy();
-    expect(fullPhoto).toBeNull();
+    if (!(searchForm && photoList)) {
+      throw new Error('searchForm or photoList not found');
+    }
+    expect(photoList.title).toBe('');
+    expect(photoList.photos).toEqual([]);
+    expect(fullPhoto).not.toExist();
   });
 
   it('searches and passes the resulting photos to the photo list', () => {
-    if (!(photoList && searchForm)) {
-      throw new Error('photoList or searchForm not found');
+    if (!(searchForm && photoList)) {
+      throw new Error('searchForm or photoList not found');
     }
     const searchTerm = 'beautiful flowers';
     searchForm.search.emit(searchTerm);
