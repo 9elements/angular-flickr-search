@@ -22,17 +22,9 @@ describe('SearchFormComponent with spectator', () => {
       actualSearchTerm = otherSearchTerm;
     });
 
-    const searchTermInput = spectator.query(byTestId('searchTermInput'));
-    if (!searchTermInput) {
-      throw new Error('searchTermInput not found');
-    }
-    spectator.typeInElement(searchTerm, searchTermInput);
+    spectator.typeInElement(searchTerm, byTestId('searchTermInput'));
 
-    const form = spectator.query(byTestId('form'));
-    if (!form) {
-      throw new Error('form not found');
-    }
-    spectator.dispatchFakeEvent(form, 'submit');
+    spectator.dispatchFakeEvent(byTestId('form'), 'submit');
 
     expect(actualSearchTerm).toBe(searchTerm);
   });
