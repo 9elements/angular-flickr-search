@@ -29,9 +29,11 @@ const fakeErrorFlickrService: PartialFlickrService = {
 };
 
 function expectActions(effect: Observable<Action>, actions: Action[]): void {
-  effect.pipe(toArray()).subscribe((actualActions) => {
-    expect(actualActions).toEqual(actions);
+  let actualActions: Action[] | undefined;
+  effect.pipe(toArray()).subscribe((actualActions2) => {
+    actualActions = actualActions2;
   }, fail);
+  expect(actualActions).toEqual(actions);
 }
 
 function setup(actions: Action[], flickrService: PartialFlickrService): PhotosEffects {
