@@ -5,7 +5,7 @@ import {
   searchTerm,
 } from '../../src/app/spec-helpers/photo.spec-helper';
 
-describe('Flickr search (with route2 network stubbing)', () => {
+describe('Flickr search (with intercept network stubbing)', () => {
   const flickrResponse = {
     photos: {
       photo: photos,
@@ -15,7 +15,7 @@ describe('Flickr search (with route2 network stubbing)', () => {
   beforeEach(() => {
     cy.visit('/');
 
-    cy.route2(
+    cy.intercept(
       {
         method: 'GET',
         url: 'https://www.flickr.com/services/rest/',
