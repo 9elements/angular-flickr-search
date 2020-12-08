@@ -18,6 +18,12 @@ Other versions:
 - [Flickr Search with Backbone](https://molily.de/javascript-introduction/flickr-backbone.html)
 - [Source code for the jQuery and Backbone versions](https://github.com/molily/molily.de/tree/master/javascript-introduction)
 
+## Terms of Use
+
+This non-commerical example application uses the Flickr API but is not endorsed or certified by Flickr Inc. or SmugMug, Inc. See the [Flickr API Terms of Use](https://www.flickr.com/help/terms/api).
+
+The code contains a Flickr API key that is bound to the example application. If you wish to use the Flickr API in your application, you need to [Request an API Key](https://www.flickr.com/services/apps/create/) yourself.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
