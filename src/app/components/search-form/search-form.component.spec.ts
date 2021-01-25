@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { findEl } from '../../spec-helpers/element.spec-helper';
+import { findEl, setFieldValue } from '../../spec-helpers/element.spec-helper';
 import { SearchFormComponent } from './search-form.component';
 
 const searchTerm = 'flowers';
@@ -26,8 +26,7 @@ describe('SearchFormComponent', () => {
       actualSearchTerm = otherSearchTerm;
     });
 
-    const searchTermInput = findEl(fixture, 'searchTermInput');
-    searchTermInput.nativeElement.value = searchTerm;
+    setFieldValue(fixture, 'searchTermInput', searchTerm);
 
     findEl(fixture, 'form').triggerEventHandler('ngSubmit', {});
 
