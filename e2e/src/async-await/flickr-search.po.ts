@@ -17,10 +17,10 @@ export class FlickrSearch {
   }
 
   public async searchFor(term: string): Promise<void> {
-    const input = findEls('searchTermInput').first();
+    const input = findEls('search-term-input').first();
     await input.clear();
     await input.sendKeys(term);
-    await findEls('submitSearch').first().click();
+    await findEls('submit-search').first().click();
     await browser.wait(
       ExpectedConditions.elementToBeClickable(this.photoItemLinks().first()),
     );

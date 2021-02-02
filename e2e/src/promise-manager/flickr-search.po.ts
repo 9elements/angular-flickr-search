@@ -17,10 +17,10 @@ export class FlickrSearch {
   }
 
   public searchFor(term: string): void {
-    const input = findEls('searchTermInput').first();
+    const input = findEls('search-term-input').first();
     input.clear();
     input.sendKeys(term);
-    findEls('submitSearch').first().click();
+    findEls('submit-search').first().click();
     browser.wait(ExpectedConditions.elementToBeClickable(this.photoItemLinks().first()));
   }
 

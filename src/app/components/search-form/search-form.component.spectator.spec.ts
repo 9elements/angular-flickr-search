@@ -22,7 +22,7 @@ describe('SearchFormComponent with spectator', () => {
       actualSearchTerm = otherSearchTerm;
     });
 
-    spectator.typeInElement(searchTerm, byTestId('searchTermInput'));
+    spectator.typeInElement(searchTerm, byTestId('search-term-input'));
 
     spectator.dispatchFakeEvent(byTestId('form'), 'ngSubmit');
 

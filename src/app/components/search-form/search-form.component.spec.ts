@@ -26,7 +26,7 @@ describe('SearchFormComponent', () => {
       actualSearchTerm = otherSearchTerm;
     });
 
-    setFieldValue(fixture, 'searchTermInput', searchTerm);
+    setFieldValue(fixture, 'search-term-input', searchTerm);
 
     findEl(fixture, 'form').triggerEventHandler('ngSubmit', {});
 

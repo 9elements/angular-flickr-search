@@ -11,10 +11,10 @@ describe('Flickr search (starter using async/await)', () => {
   });
 
   it('searches for a term', async () => {
-    const input = findEl('searchTermInput');
+    const input = findEl('search-term-input');
     await input.clear();
     await input.sendKeys('flower');
-    await findEl('submitSearch').click();
+    await findEl('submit-search').click();
 
     const links = findEls('photo-item-link');
     await browser.wait(ExpectedConditions.elementToBeClickable(links.first()));
@@ -30,10 +30,10 @@ describe('Flickr search (starter using async/await)', () => {
   });
 
   it('shows the full photo', async () => {
-    const input = findEl('searchTermInput');
+    const input = findEl('search-term-input');
     await input.clear();
     await input.sendKeys('flower');
-    await findEl('submitSearch').click();
+    await findEl('submit-search').click();
 
     const link = findEls('photo-item-link').first();
     await browser.wait(ExpectedConditions.elementToBeClickable(link));

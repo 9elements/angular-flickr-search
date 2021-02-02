@@ -6,8 +6,8 @@ describe('Flickr search', () => {
   });
 
   it('searches for a term', () => {
-    cy.byTestId('searchTermInput').first().clear().type(searchTerm);
-    cy.byTestId('submitSearch').first().click();
+    cy.byTestId('search-term-input').first().clear().type(searchTerm);
+    cy.byTestId('submit-search').first().click();
 
     cy.byTestId('photo-item-link')
       .should('have.length', 15)
@@ -18,8 +18,8 @@ describe('Flickr search', () => {
   });
 
   it('shows the full photo', () => {
-    cy.byTestId('searchTermInput').first().clear().type(searchTerm);
-    cy.byTestId('submitSearch').first().click();
+    cy.byTestId('search-term-input').first().clear().type(searchTerm);
+    cy.byTestId('submit-search').first().click();
 
     cy.byTestId('photo-item-link').first().click();
     cy.byTestId('full-photo').should('contain', searchTerm);

@@ -10,10 +10,10 @@ describe('Flickr search (starter)', () => {
   });
 
   it('searches for a term', () => {
-    const input = findEl('searchTermInput');
+    const input = findEl('search-term-input');
     input.clear();
     input.sendKeys('flower');
-    findEl('submitSearch').click();
+    findEl('submit-search').click();
 
     const links = findEls('photo-item-link');
     browser.wait(ExpectedConditions.elementToBeClickable(links.first()));
@@ -29,10 +29,10 @@ describe('Flickr search (starter)', () => {
   });
 
   it('shows the full photo', async () => {
-    const input = findEl('searchTermInput');
+    const input = findEl('search-term-input');
     input.clear();
     input.sendKeys('flower');
-    findEl('submitSearch').click();
+    findEl('submit-search').click();
 
     const link = findEls('photo-item-link').first();
     browser.wait(ExpectedConditions.elementToBeClickable(link));

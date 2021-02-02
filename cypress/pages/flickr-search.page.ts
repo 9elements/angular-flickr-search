@@ -10,8 +10,8 @@ export class FlickrSearch {
   }
 
   public searchFor(term: string): void {
-    cy.byTestId('searchTermInput').first().clear().type(term);
-    cy.byTestId('submitSearch').first().click();
+    cy.byTestId('search-term-input').first().clear().type(term);
+    cy.byTestId('submit-search').first().click();
   }
 
   public photoItemLinks(): Cypress.Chainable<JQuery<HTMLElement>> {
