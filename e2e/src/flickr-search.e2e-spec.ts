@@ -1,5 +1,5 @@
 import { browser, ExpectedConditions } from 'protractor';
-import { findEl, findEls } from '../e2e.spec-helper';
+import { findEl, findEls } from './e2e.spec-helper';
 
 /**
  * Test for the Flickr search without page object using async/await

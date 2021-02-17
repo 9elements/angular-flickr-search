@@ -6,22 +6,24 @@ import {
   promise,
 } from 'protractor';
 
-import { findEl, findEls } from '../e2e.spec-helper';
+import { findEl, findEls } from './e2e.spec-helper';
 
 /**
- * Page object for the Flickr search using the Selenium Promise manager
+ * Page object for the Flickr search using async/await
  */
 export class FlickrSearch {
-  public navigateTo(): void {
-    browser.get('/');
+  public async navigateTo(): Promise<any> {
+    await browser.get('/');
   }
 
-  public searchFor(term: string): void {
+  public async searchFor(term: string): Promise<void> {
     const input = findEls('search-term-input').first();
-    input.clear();
-    input.sendKeys(term);
-    findEls('submit-search').first().click();
-    browser.wait(ExpectedConditions.elementToBeClickable(this.photoItemLinks().first()));
+    await input.clear();
+    await input.sendKeys(term);
+    await findEls('submit-search').first().click();
+    await browser.wait(
+      ExpectedConditions.elementToBeClickable(this.photoItemLinks().first()),
+    );
   }
 
   public photoItemLinks(): ElementArrayFinder {
