@@ -32,18 +32,18 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+## Running unit & integration tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test` to execute the unit & integration tests with Karma and Jasmine.
 
 ## Running end-to-end tests
 
 ### Cypress
 
-Run `ng run flickr-search:cypress-run` to execute the end-to-end tests via [Cypress](https://www.cypress.io/).
+Run `ng run flickr-search:cypress-run` to execute the Cypress end-to-end tests.
 
 Run `ng run flickr-search:cypress-open` to start the interactive Cypress test runner.
 
 ### Protractor
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `ng e2e` to execute the Protractor end-to-end tests.
