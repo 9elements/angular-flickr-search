@@ -1,5 +1,8 @@
 # Flickr Search – Angular example application
 
+📖 This example is part of the **[free online book: Testing Angular – A Guide to Robust Angular Applications
+](https://molily.de/testing-angular/)**. 📖
+
 This is an Angular example application implementing a Flickr photo search. There is one version with plain Angular and one version with [NgRx](https://ngrx.io/).
 
 The application is fully tested with unit and end-to-end tests.
