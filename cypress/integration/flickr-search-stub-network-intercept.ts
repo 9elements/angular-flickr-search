@@ -13,12 +13,10 @@ describe('Flickr search (with intercept network stubbing)', () => {
   };
 
   beforeEach(() => {
-    cy.visit('/');
-
     cy.intercept(
       {
         method: 'GET',
-        url: 'https://www.flickr.com/services/rest/',
+        url: 'https://www.flickr.com/services/rest/*',
         query: {
           tags: searchTerm,
           method: 'flickr.photos.search',
@@ -28,7 +26,7 @@ describe('Flickr search (with intercept network stubbing)', () => {
           media: 'photos',
           per_page: '15',
           extras: 'tags,date_taken,owner_name,url_q,url_m',
-          // Omit api_key, it is likely to change
+          api_key: '*',
         },
       },
       {
@@ -38,6 +36,8 @@ describe('Flickr search (with intercept network stubbing)', () => {
         },
       },
     ).as('flickrSearchRequest');
+
+    cy.visit('/');
   });
 
   it('searches for a term', () => {
