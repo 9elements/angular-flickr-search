@@ -11,15 +11,15 @@ Unit tests are written in plain Angular using `TestBed` and additionally using [
 
 End-to-end tests are written with [Cypress](https://www.cypress.io/) and also with [Protractor](http://www.protractortest.org/).
 
-**[App structure plan (React version)](https://github.com/molily/learning-react/tree/master/5-flickr-search)**
+**[App structure plan (React version)](https://github.com/molily/learning-react/tree/main/5-flickr-search)**
 
 Other versions:
 
-- [Flickr Search with React](https://github.com/molily/learning-react/tree/master/5-flickr-search)
-- [Flickr Search with React and Redux](https://github.com/molily/learning-react/tree/master/7-flickr-search-redux)
+- [Flickr Search with React](https://github.com/molily/learning-react/tree/main/5-flickr-search)
+- [Flickr Search with React and Redux](https://github.com/molily/learning-react/tree/main/7-flickr-search-redux)
 - [Flickr Search with jQuery](https://molily.de/javascript-introduction/flickr-jquery.html)
 - [Flickr Search with Backbone](https://molily.de/javascript-introduction/flickr-backbone.html)
-- [Source code for the jQuery and Backbone versions](https://github.com/molily/molily.de/tree/master/javascript-introduction)
+- [Source code for the jQuery and Backbone versions](https://github.com/molily/molily.de/tree/main/javascript-introduction)
 
 ## Terms of Use
 
