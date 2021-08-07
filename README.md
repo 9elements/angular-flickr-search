@@ -43,10 +43,10 @@ Run `ng test` to execute the unit & integration tests with Karma and Jasmine.
 
 ### Cypress
 
-Run `ng run flickr-search:cypress-run` to execute the Cypress end-to-end tests.
+Run `ng run flickr-search:cypress-run` to execute the Cypress end-to-end tests. (This starts the development server automatically.)
 
 Run `ng run flickr-search:cypress-open` to start the interactive Cypress test runner.
 
 ### Protractor
 
-Run `ng e2e` to execute the Protractor end-to-end tests.
+Run `ng e2e` to execute the Protractor end-to-end tests. (This starts the development server automatically.)
