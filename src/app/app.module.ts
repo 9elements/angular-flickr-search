@@ -8,7 +8,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { FlickrSearchNgrxComponent } from './components/flickr-search-ngrx/flickr-search-ngrx.component';
-// tslint:disable-next-line: max-line-length
+// eslint-disable-next-line max-len
 import { FlickrSearchComponent } from './components/flickr-search/flickr-search.component';
 import { FullPhotoComponent } from './components/full-photo/full-photo.component';
 import { PhotoItemComponent } from './components/photo-item/photo-item.component';
