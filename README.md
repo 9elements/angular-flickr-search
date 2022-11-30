@@ -49,4 +49,14 @@ Run `ng run flickr-search:cypress-open` to start the interactive Cypress test ru
 
 ### Protractor
 
-Run `ng e2e` to execute the Protractor end-to-end tests. (This starts the development server automatically.)
+Start the development server first. Then run `npm run protractor` to execute the Protractor end-to-end tests.
+
+It might be necessary to download the browser drivers before:
+
+```
+npx webdriver-manager update
+```
+
+## Deployment
+
+Run `npm run deploy` to the deploy the code to [https://9elements.github.io/angular-flickr-search/].
