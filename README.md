@@ -9,7 +9,7 @@ The application is fully tested with unit and end-to-end tests.
 
 Unit tests are written in plain Angular using `TestBed` and additionally using [Spectator](https://github.com/ngneat/spectator).
 
-End-to-end tests are written with [Cypress](https://www.cypress.io/) and also with [Protractor](http://www.protractortest.org/).
+End-to-end tests are written with [Cypress](https://www.cypress.io/).
 
 **[App structure plan (React version)](https://github.com/molily/learning-react/tree/main/5-flickr-search)**
 
@@ -35,18 +35,16 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit & integration tests
+## Running the unit & integration tests
 
 Run `ng test` to execute the unit & integration tests with Karma and Jasmine.
 
-## Running end-to-end tests
-
-### Cypress
+## Running the end-to-end tests with Cypress
 
 Run `ng run flickr-search:cypress-run` to execute the Cypress end-to-end tests. (This starts the development server automatically.)
 
 Run `ng run flickr-search:cypress-open` to start the interactive Cypress test runner.
 
-### Protractor
+## Deployment
 
-Run `ng e2e` to execute the Protractor end-to-end tests. (This starts the development server automatically.)
+Run `npm run deploy` to the deploy the code to [https://9elements.github.io/angular-flickr-search/].

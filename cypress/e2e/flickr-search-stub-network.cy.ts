@@ -16,13 +16,11 @@ describe('Flickr search (with network stubbing)', () => {
   };
 
   beforeEach(() => {
-    cy.server();
-    cy.route({
-      url: expectedUrl,
-      response: flickrResponse,
+    cy.intercept('GET', expectedUrl, {
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
+      body: flickrResponse,
     }).as('flickrSearchRequest');
 
     cy.visit('/');
