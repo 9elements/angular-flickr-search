@@ -94,18 +94,6 @@
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "flickr-search:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "flickr-search:serve:production"
-            }
-          }
-        },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {}
