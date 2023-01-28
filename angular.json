@@ -115,12 +115,26 @@
             "watch": true,
             "headless": false
           }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "flickr-search:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "flickr-search:serve:production"
+            }
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": ["@cypress/schematic", "@schematics/angular"]
   },
   "schematics": {
     "@angular-eslint/schematics:application": {
